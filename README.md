@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Namangan 3-sonli texnikum — Rasmiy Veb-Sayti
 
-## Getting Started
+O‘zbekiston Respublikasi Namangan 3-sonli texnikumining zamonaviy, to‘liq moslashuvchan (responsive) va ko‘p funksiyali rasmiy veb-portali.
 
-First, run the development server:
+## 🚀 Texnologik Stek
+
+- **Freymvork**: Next.js 16 (App Router)
+- **Kutubxona**: React 19
+- **Til**: TypeScript
+- **Dizayn & Stillashtirish**: Tailwind CSS v4 (Light & Professional Dark Mode)
+- **Animatsiyalar**: Framer Motion
+- **Ikonkalar**: Lucide React & Maxsus SVG piktogrammalar
+- **Xavfsizlik**: HTTP Security Headers (CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy)
+
+## 📌 Asosiy Bo‘limlar
+
+1. **Bosh sahifa (Hero)** — Taassurot qoldiruvchi asosiy ekran, tezkor statistika va harakatga undovchi tugmalar.
+2. **Texnikum haqida (About)** — Muassasa maqsadlari, o‘quv muhiti va asosiy qadriyatlar.
+3. **Yo‘nalishlar (5 ta mutaxassislik)**:
+   - Dasturlash (IT & Dasturiy ta’minot)
+   - Kompyuter grafikasi (Dizayn, 3D va media)
+   - Avtomobilsozlik va avtomobillarga texnik xizmat ko‘rsatish
+   - Oshpazlik (Pazandachilik va restoran servisi)
+   - Moda va tikuvchilik (Kiyim dizayni va modellashtirish)
+   - *Har bir yo‘nalish bo‘yicha to‘liq o‘quv rejasi va kasb imkoniyatlarini aks ettiruvchi «Batafsil» modali.*
+4. **Imkoniyatlar (Features)** — Amaliy ta’lim, zamonaviy texnologiyalar, kasbiy rivojlanish va tajribali ustozlar.
+5. **Galereya (Gallery)** — Asimmetrik bento grid, toifalar filtri va to‘liq ekranli Lightbox.
+6. **Qabul (Admission)** — Abituriyentlar uchun 3 bosqichli ko‘rsatma va konsultatsiya so‘rovi.
+7. **Aloqa (Contact)** — Rasmiy telefon raqamlari, ish vaqti, Google xaritasi va interaktiv murojaat formasi.
+
+## 🛠 O‘rnatish va Ishga Tushirish
+
+Loyihani klonlash va ishga tushirish:
 
 ```bash
+# Bog‘liqliklarni o‘rnatish
+npm install
+
+# Dasturchi rejimida ishga tushirish
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Ishlab chiqarish (Production) build qilish
+npm run build
+
+# Ishlab chiqarish serverini ishga tushirish
+npm run start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Sayt manzili: [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ⚙️ Ma’lumotlarni Tahrirlash
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Saytdagi barcha kontaktlar, telefonlar, telegram havolalari va matnlar markaziy faylda saqlanadi:
+👉 `src/data/siteConfig.ts`
 
-## Learn More
+## 📄 Litsenziya va Mualliflik
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+© Namangan 3-sonli texnikum. Barcha huquqlar himoyalangan.
