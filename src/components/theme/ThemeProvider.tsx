@@ -30,9 +30,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       const root = document.documentElement;
       if (isDark) {
         root.classList.add("dark");
+        root.setAttribute("data-theme", "dark");
         setResolvedTheme("dark");
       } else {
         root.classList.remove("dark");
+        root.setAttribute("data-theme", "light");
         setResolvedTheme("light");
       }
     };
@@ -61,9 +63,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
     if (isDark) {
       root.classList.add("dark");
+      root.setAttribute("data-theme", "dark");
       setResolvedTheme("dark");
     } else {
       root.classList.remove("dark");
+      root.setAttribute("data-theme", "light");
       setResolvedTheme("light");
     }
   };

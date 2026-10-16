@@ -166,7 +166,7 @@ export default function Footer() {
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>© {siteConfig.name}. Barcha huquqlar himoyalangan.</p>
           <div className="flex items-center gap-4">
-            <span>Ta’lim standartlari asosida yaratilgan</span>
+            <span>Professional Full-Stack Developer arxitekturasi</span>
             <a
               href="#hero"
               className="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"

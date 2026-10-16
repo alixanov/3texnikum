@@ -125,32 +125,32 @@ export const siteConfig = {
   directions: [
     {
       id: "dasturlash",
-      title: "Dasturlash",
-      subtitle: "Axborot texnologiyalari va dasturiy injiniring",
+      title: "Dasturlash (Full-Stack Developer)",
+      subtitle: "Full-Stack veb-dasturlash, Frontend, Backend va IT injiniring",
       description:
         "Dasturlash, veb-saytlar yaratish, dasturiy ta’minot ishlab chiqish va zamonaviy IT texnologiyalarini o‘rganish.",
-      badge: "IT & Texnologiya",
+      badge: "Full-Stack IT",
       duration: "Amaliy kurs dasturi",
       format: "Nazariya + IT laboratoriya amaliyoti",
       image:
         "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1000&q=80",
       skills: [
-        "Veb-saytlar va veb-servislar yaratish (HTML, CSS, JavaScript, React)",
-        "Backend va ma’lumotlar bazalari bilan ishlash",
-        "Algoritmik fikrlash va dasturiy ta’minot arxitekturasi",
-        "Git versiyalar boshqaruvi va jamoaviy loyihalarda ishlash",
+        "Frontend: HTML5, CSS3, Tailwind CSS, JavaScript va React / Next.js",
+        "Backend: Node.js, Express, Python va RESTful API ishlab chiqish",
+        "Ma’lumotlar bazalari: PostgreSQL, MySQL va MongoDB bilan ishlash",
+        "Git versiya boshqaruvi, Docker va to‘liq Full-Stack ilovalarni yaratish",
       ],
       careers: [
+        "Full-Stack dasturchi",
         "Frontend dasturchi",
-        "Veb-sayt administratori",
-        "Kichik dasturiy ta’minot muhandisi",
-        "Frilanser dasturchi",
+        "Backend dasturchi",
+        "Veb-dasturiy ta’minot muhandisi",
       ],
       curriculum: [
-        "Dasturlash asoslari va algoritmlar",
-        "Zamonaviy frontend texnologiyalari",
-        "Ma’lumotlar bazasi va server bilan ishlash",
-        "Amaliy loyiha va diplom ishi himoyasi",
+        "Dasturlash asoslari, algoritmlar va ma’lumotlar tuzilmasi",
+        "Zamonaviy Frontend texnologiyalari (React, Next.js, Tailwind)",
+        "Backend server arxitekturasi va ma’lumotlar bazalari",
+        "Haqiqiy Full-Stack startap va portfolio loyihalarini yaratish",
       ],
     },
     {
