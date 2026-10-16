@@ -16,7 +16,7 @@ import { TelegramIcon, InstagramIcon, FacebookIcon } from "../ui/SocialIcons";
 
 export default function ContactSection() {
   return (
-    <section id="aloqa" className="py-20 md:py-28 bg-slate-50 dark:bg-slate-950 transition-colors duration-300 relative">
+    <section id="aloqa" className="py-16 sm:py-24 md:py-28 bg-slate-50 dark:bg-slate-950 transition-colors duration-300 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="Aloqa"

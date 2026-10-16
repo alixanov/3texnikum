@@ -56,6 +56,16 @@ body {
   background: #475569;
 }
 
+/* Hide scrollbar utility for mobile filter bars */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Selection color */
 ::selection {
   background-color: #0284c7;

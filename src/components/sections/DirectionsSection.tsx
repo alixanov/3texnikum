@@ -12,7 +12,7 @@ export default function DirectionsSection() {
   const [selectedDirection, setSelectedDirection] = useState<DirectionItem | null>(null);
 
   return (
-    <section id="yonalishlar" className="py-20 md:py-28 bg-slate-50 dark:bg-slate-950 transition-colors duration-300 relative">
+    <section id="yonalishlar" className="py-16 sm:py-24 md:py-28 bg-slate-50 dark:bg-slate-950 transition-colors duration-300 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="Mutaxassisliklar"
@@ -21,7 +21,7 @@ export default function DirectionsSection() {
         />
 
         {/* 5 Specialty Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {siteConfig.directions.map((item, index) => {
             const isFeatured = index < 2;
             return (

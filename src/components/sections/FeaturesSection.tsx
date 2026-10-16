@@ -23,7 +23,7 @@ export default function FeaturesSection() {
   };
 
   return (
-    <section id="imkoniyatlar" className="py-20 md:py-28 bg-white dark:bg-slate-900 transition-colors duration-300 relative">
+    <section id="imkoniyatlar" className="py-16 sm:py-24 md:py-28 bg-white dark:bg-slate-900 transition-colors duration-300 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="Imkoniyatlar"
@@ -31,7 +31,7 @@ export default function FeaturesSection() {
           subtitle="Talabalarning har tomonlama yetuk mutaxassis bo‘lib yetishishiga qaratilgan asosiy omillar"
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {siteConfig.features.map((feature, index) => (
             <motion.div
               key={feature.id}
@@ -39,7 +39,7 @@ export default function FeaturesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 hover:border-sky-300 dark:hover:border-sky-500 hover:bg-gradient-to-b hover:from-white dark:hover:from-slate-800 hover:to-sky-50/40 dark:hover:to-sky-950/20 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+              className="p-6 sm:p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 hover:border-sky-300 dark:hover:border-sky-500 hover:bg-gradient-to-b hover:from-white dark:hover:from-slate-800 hover:to-sky-50/40 dark:hover:to-sky-950/20 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
             >
               <div>
                 <div className="w-14 h-14 rounded-2xl bg-white dark:bg-slate-800 text-sky-600 dark:text-sky-400 shadow-md shadow-slate-200/50 dark:shadow-slate-950/50 flex items-center justify-center mb-6 border border-slate-100 dark:border-slate-700 group-hover:bg-sky-600 group-hover:text-white transition-colors duration-300">

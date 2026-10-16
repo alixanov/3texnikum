@@ -10,7 +10,7 @@ export default function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative min-h-[92vh] lg:min-h-screen flex items-center justify-center bg-slate-950 overflow-hidden pt-24 pb-16 lg:py-0"
+      className="relative min-h-[100dvh] flex items-center justify-center bg-slate-950 overflow-hidden pt-28 pb-16 sm:py-24 lg:py-0"
     >
       {/* Background Image with Dark Vignette Overlay */}
       <div className="absolute inset-0 z-0">
@@ -23,21 +23,21 @@ export default function HeroSection() {
           className="object-cover object-center opacity-30 transform scale-105 transition-transform duration-1000"
         />
         {/* Deep blue/black educational ambient gradients */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/90" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(14,165,233,0.15),rgba(255,255,255,0))]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/75 to-slate-950/90" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(14,165,233,0.18),rgba(255,255,255,0))]" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 md:py-20">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="max-w-3xl mx-auto text-center">
           {/* Institutional Badge */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sky-500/10 border border-sky-400/20 backdrop-blur-md text-sky-300 text-xs sm:text-sm font-semibold mb-6 shadow-inner"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-sky-500/10 border border-sky-400/20 backdrop-blur-md text-sky-300 text-[11px] sm:text-sm font-semibold mb-5 sm:mb-6 shadow-inner"
           >
-            <ShieldCheck className="w-4 h-4 text-sky-400" />
-            <span>{siteConfig.hero.badge}</span>
+            <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-sky-400 shrink-0" />
+            <span className="truncate">{siteConfig.hero.badge}</span>
           </motion.div>
 
           {/* Main Headline */}
@@ -45,7 +45,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.15] text-balance"
+            className="text-2xl xs:text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.2] sm:leading-[1.15] text-balance"
           >
             {siteConfig.hero.headline}
           </motion.h1>
@@ -55,7 +55,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="mt-6 text-lg sm:text-xl text-slate-300 font-normal leading-relaxed text-balance"
+            className="mt-4 sm:mt-6 text-sm xs:text-base sm:text-xl text-slate-300 font-normal leading-relaxed text-balance max-w-2xl mx-auto"
           >
             {siteConfig.hero.subheadline}
           </motion.p>
@@ -65,22 +65,22 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.45 }}
-            className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto"
           >
             <a
               href="#yonalishlar"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 text-base font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-xl shadow-lg shadow-sky-600/30 hover:shadow-sky-500/40 transition-all hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-semibold text-white bg-sky-600 hover:bg-sky-500 rounded-xl shadow-lg shadow-sky-600/30 hover:shadow-sky-500/40 transition-all hover:-translate-y-0.5 active:scale-[0.98]"
             >
-              <Compass className="w-5 h-5" />
+              <Compass className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
               <span>{siteConfig.hero.ctaPrimary}</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4 shrink-0" />
             </a>
 
             <a
               href="#aloqa"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 text-base font-semibold text-slate-200 hover:text-white bg-white/10 hover:bg-white/15 border border-white/15 rounded-xl backdrop-blur-md transition-all hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-semibold text-slate-200 hover:text-white bg-white/10 hover:bg-white/15 border border-white/15 rounded-xl backdrop-blur-md transition-all hover:-translate-y-0.5 active:scale-[0.98]"
             >
-              <PhoneCall className="w-5 h-5 text-sky-400" />
+              <PhoneCall className="w-4 h-4 sm:w-5 sm:h-5 text-sky-400 shrink-0" />
               <span>{siteConfig.hero.ctaSecondary}</span>
             </a>
           </motion.div>
@@ -90,14 +90,14 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-14 pt-10 border-t border-white/10 grid grid-cols-3 gap-4 sm:gap-8 max-w-xl mx-auto"
+            className="mt-10 sm:mt-14 pt-8 sm:pt-10 border-t border-white/10 grid grid-cols-3 gap-2 sm:gap-8 max-w-xl mx-auto"
           >
             {siteConfig.hero.quickStats.map((stat, i) => (
-              <div key={i} className="text-center">
-                <span className="block text-2xl sm:text-3xl font-black text-white">
+              <div key={i} className="text-center px-1">
+                <span className="block text-lg xs:text-2xl sm:text-3xl font-black text-white">
                   {stat.value}
                 </span>
-                <span className="block text-xs sm:text-sm text-slate-400 mt-1 font-medium">
+                <span className="block text-[11px] sm:text-sm text-slate-400 mt-1 font-medium leading-tight">
                   {stat.label}
                 </span>
               </div>

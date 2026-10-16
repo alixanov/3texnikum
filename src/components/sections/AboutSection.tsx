@@ -9,7 +9,7 @@ import SectionHeading from "../ui/SectionHeading";
 
 export default function AboutSection() {
   return (
-    <section id="haqimizda" className="py-20 md:py-28 bg-white dark:bg-slate-900 transition-colors duration-300 relative">
+    <section id="haqimizda" className="py-16 sm:py-24 md:py-28 bg-white dark:bg-slate-900 transition-colors duration-300 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge={siteConfig.about.sectionBadge}

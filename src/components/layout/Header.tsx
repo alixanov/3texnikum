@@ -38,27 +38,27 @@ export default function Header() {
             {/* Logo / Brand Name */}
             <a
               href="#hero"
-              className="group flex items-center gap-3 transition-transform focus:outline-none"
+              className="group flex items-center gap-2.5 sm:gap-3 transition-transform focus:outline-none min-w-0 max-w-[65%] sm:max-w-none"
             >
               <div
-                className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${
+                className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shrink-0 transition-all ${
                   isScrolled
                     ? "bg-sky-600 text-white shadow-md shadow-sky-600/20"
                     : "bg-white text-slate-900 shadow-md"
                 }`}
               >
-                <GraduationCap className="w-5 h-5 transition-transform group-hover:scale-110" />
+                <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:scale-110" />
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col min-w-0">
                 <span
-                  className={`text-xs uppercase tracking-wider font-semibold ${
+                  className={`text-[10px] sm:text-xs uppercase tracking-wider font-semibold truncate ${
                     isScrolled ? "text-sky-600 dark:text-sky-400" : "text-sky-300"
                   }`}
                 >
                   O‘zbekiston Respublikasi
                 </span>
                 <span
-                  className={`font-black tracking-tight text-sm sm:text-base leading-tight ${
+                  className={`font-black tracking-tight text-xs sm:text-base leading-tight truncate ${
                     isScrolled ? "text-slate-900 dark:text-white" : "text-white"
                   }`}
                 >
