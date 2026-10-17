@@ -63,11 +63,11 @@ export const siteConfig = {
     facebookUrl: "https://facebook.com/namangantexniku",
     youtubeUrl: "https://youtube.com",
     mapCoordinates: {
-      lat: 40.9983,
-      lng: 71.6726,
+      lat: 41.004723,
+      lng: 71.673978,
     },
     mapEmbedUrl:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d96577.92556550742!2d71.5833076829774!3d40.99830004944985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bb4c9c22119939%3A0x6bfa332b2609be4!2sNamangan%2C%20Namangan%20Region%2C%20Uzbekistan!5e0!3m2!1sen!2s!4v1710000000000!5m2!1sen!2s",
+      "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d752.7345823548854!2d71.67397826963264!3d41.00472299820947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2s!4v1792229287762!5m2!1sru!2s",
   },
 
   // Navigatsiya menyusi
