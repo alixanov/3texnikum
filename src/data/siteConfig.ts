@@ -253,7 +253,7 @@ export const siteConfig = {
       duration: "Amaliy kurs dasturi",
       format: "Tikuvchilik ustaxonasi va modellashtirish stoli",
       image:
-        "https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1541883115841-18e1015eef8e?auto=format&fit=crop&w=1000&q=80",
       skills: [
         "Kiyimlarni bichish, andozalar yasash va bichish-tikish texnologiyasi",
         "Sanoat va maishiy tikuv mashinalari bilan ishlash",
@@ -346,7 +346,7 @@ export const siteConfig = {
       title: "Tikuvchilik ustaxonasi va kiyim dizayni jarayoni",
       category: "Moda va tikuvchilik",
       image:
-        "https://images.unsplash.com/photo-1605289982774-9a6fef564df8?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1584184924103-e310d9dc82fc?auto=format&fit=crop&w=1000&q=80",
       aspect: "square",
     },
     {
