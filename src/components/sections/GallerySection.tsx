@@ -60,10 +60,11 @@ export default function GallerySection() {
           ))}
         </div>
 
-        {/* Asymmetric Responsive Gallery Grid */}
+        {/* Responsive Gallery Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {filteredItems.map((item, index) => {
-            const isWide = index === 0 || index === 3;
+            const isAll = activeCategory === "Barchasi";
+            const isWide = isAll && (index === 0 || index === 3);
             return (
               <motion.div
                 key={item.id}
@@ -75,7 +76,9 @@ export default function GallerySection() {
                 className={`group relative rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-2xl transition-all duration-300 bg-slate-900 ${
                   isWide
                     ? "aspect-[16/10] sm:aspect-[16/9] sm:col-span-2 lg:col-span-2"
-                    : "aspect-[4/3]"
+                    : isAll
+                    ? "aspect-[4/3]"
+                    : "aspect-[16/10]"
                 }`}
               >
                 <Image

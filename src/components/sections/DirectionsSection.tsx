@@ -20,10 +20,11 @@ export default function DirectionsSection() {
           subtitle="Zamonaviy mehnat bozorida yuqori talabga ega 5 ta asosiy kasbiy soha"
         />
 
-        {/* 5 Specialty Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {/* 5 Specialty Cards Bento Grid (2 top featured 6-cols, 3 bottom 4-cols = 100% full rows) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 sm:gap-8">
           {siteConfig.directions.map((item, index) => {
             const isFeatured = index < 2;
+            const colSpan = isFeatured ? "lg:col-span-6" : "lg:col-span-4";
             return (
               <motion.div
                 key={item.id}
@@ -31,12 +32,14 @@ export default function DirectionsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`group relative bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-2xl hover:border-sky-300 dark:hover:border-sky-500 transition-all duration-300 flex flex-col justify-between ${
-                  isFeatured && index === 0 ? "lg:col-span-1" : ""
-                }`}
+                className={`group relative bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-2xl hover:border-sky-300 dark:hover:border-sky-500 transition-all duration-300 flex flex-col justify-between ${colSpan}`}
               >
                 {/* Image Container with Hover Zoom */}
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
+                <div
+                  className={`relative w-full overflow-hidden bg-slate-100 dark:bg-slate-800 ${
+                    isFeatured ? "aspect-[16/9]" : "aspect-[16/10]"
+                  }`}
+                >
                   <Image
                     src={item.image}
                     alt={item.title}
@@ -76,7 +79,7 @@ export default function DirectionsSection() {
                     <button
                       type="button"
                       onClick={() => setSelectedDirection(item)}
-                      className="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold text-sky-600 dark:text-sky-400 group-hover:text-white bg-sky-50 dark:bg-sky-950/60 group-hover:bg-sky-600 rounded-xl transition-all duration-200 shadow-sm border border-sky-100 dark:border-sky-900/40"
+                      className="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold text-sky-600 dark:text-sky-400 group-hover:text-white bg-sky-50 dark:bg-sky-950/60 group-hover:bg-sky-600 rounded-xl transition-all duration-200 shadow-sm border border-sky-100 dark:border-sky-900/40 cursor-pointer"
                     >
                       <span>Batafsil</span>
                       <ArrowRight className="w-3.5 h-3.5 transform transition-transform duration-200 group-hover:translate-x-1" />

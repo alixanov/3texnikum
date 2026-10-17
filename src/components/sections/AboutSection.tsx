@@ -22,7 +22,7 @@ export default function AboutSection() {
   return (
     <section
       id="haqimizda"
-      className="py-16 sm:py-24 md:py-28 bg-slate-50/60 dark:bg-slate-900/60 transition-colors duration-300 relative overflow-hidden"
+      className="py-16 sm:py-24 md:py-28 bg-white dark:bg-slate-900 transition-colors duration-300 relative overflow-hidden"
     >
       {/* Background ambient accents */}
       <div className="absolute top-1/4 -left-48 w-96 h-96 bg-sky-400/10 dark:bg-sky-500/5 rounded-full blur-3xl pointer-events-none" />

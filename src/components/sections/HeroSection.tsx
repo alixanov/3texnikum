@@ -85,7 +85,7 @@ export default function HeroSection() {
             </a>
           </motion.div>
 
-          {/* Key Quick Indicators with safe touch cards */}
+          {/* Key Quick Indicators with responsive touch cards */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -95,12 +95,12 @@ export default function HeroSection() {
             {siteConfig.hero.quickStats.map((stat, i) => (
               <div
                 key={i}
-                className="p-3 sm:p-4 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-sm text-center"
+                className="p-2.5 sm:p-4 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-sm text-center flex flex-col justify-center min-w-0"
               >
-                <span className="block text-lg xs:text-2xl sm:text-3xl font-black text-white">
+                <span className="block text-base xs:text-2xl sm:text-3xl font-black text-white truncate">
                   {stat.value}
                 </span>
-                <span className="block text-[11px] sm:text-xs text-slate-400 mt-1 font-medium leading-tight">
+                <span className="block text-[10px] xs:text-xs text-slate-400 mt-1 font-medium leading-tight">
                   {stat.label}
                 </span>
               </div>

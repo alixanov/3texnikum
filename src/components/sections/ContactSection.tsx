@@ -191,7 +191,7 @@ export default function ContactSection() {
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   title="Namangan 3-sonli texnikumi xaritada"
-                  className="grayscale-20 contrast-110 dark:invert-[0.88] dark:hue-rotate-180"
+                  className="w-full h-full rounded-2xl transition-all duration-300 contrast-[1.05] dark:contrast-[1.12] dark:brightness-[0.88] dark:opacity-90"
                 />
               </div>
             </div>
