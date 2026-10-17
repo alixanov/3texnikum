@@ -93,8 +93,7 @@ export const siteConfig = {
       { label: "Asosiy mutaxassislik", value: "5 ta" },
       { label: "Ta’lim shakli", value: "Kunduzgi" },
     ],
-    bgImage:
-      "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1920&q=80",
+    bgImage: "/images/hero/hero-bg.jpg",
   },
 
   // Texnikum haqida
@@ -117,8 +116,7 @@ export const siteConfig = {
         desc: "Har bir o‘quvchining shaxsiy iqtidori va qobiliyatini rivojlantirishga qaratilgan yondashuv.",
       },
     ],
-    image:
-      "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80",
+    image: "/images/about/about.jpg",
   },
 
   // 5 ta asosiy mutaxassislik yo'nalishlari
@@ -132,8 +130,7 @@ export const siteConfig = {
       badge: "Full-Stack IT",
       duration: "Amaliy kurs dasturi",
       format: "Nazariya + IT laboratoriya amaliyoti",
-      image:
-        "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1000&q=80",
+      image: "/images/directions/dasturlash.jpg",
       skills: [
         "Frontend: HTML5, CSS3, Tailwind CSS, JavaScript va React / Next.js",
         "Backend: Node.js, Express, Python va RESTful API ishlab chiqish",
@@ -162,8 +159,7 @@ export const siteConfig = {
       badge: "Dizayn & Kreativ",
       duration: "Amaliy kurs dasturi",
       format: "Ijodiy studiya va kompyuter grafikasi mashg‘ulotlari",
-      image:
-        "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=1000&q=80",
+      image: "/images/directions/grafika.jpg",
       skills: [
         "Grafik dasturlar: Adobe Photoshop, Illustrator, Figma",
         "3D fazoda modellashtirish va vizualizatsiya",
@@ -192,8 +188,7 @@ export const siteConfig = {
       badge: "Muhandislik & Servis",
       duration: "Amaliy kurs dasturi",
       format: "O‘quv ustaxonasi va bevosita texnik diagnostika",
-      image:
-        "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=1000&q=80",
+      image: "/images/directions/avto.jpg",
       skills: [
         "Ichki yonuv va gibrid dvigatellarning tuzilishi va ishlash prinsiplari",
         "Kompyuterli texnik diagnostika uskunalari bilan ishlash",
@@ -222,8 +217,7 @@ export const siteConfig = {
       badge: "Xizmat ko‘rsatish & San’at",
       duration: "Amaliy kurs dasturi",
       format: "Professional o‘quv oshxonasi amaliyoti",
-      image:
-        "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1000&q=80",
+      image: "/images/directions/oshpazlik.jpg",
       skills: [
         "Milliy va xorijiy taomlar retsepturasini o‘zlashtirish",
         "Oziq-ovqat mahsulotlarini birlamchi va issiqlik bilan qayta ishlash",
@@ -252,8 +246,7 @@ export const siteConfig = {
       badge: "Moda & Ishlab chiqarish",
       duration: "Amaliy kurs dasturi",
       format: "Tikuvchilik ustaxonasi va modellashtirish stoli",
-      image:
-        "https://images.unsplash.com/photo-1541883115841-18e1015eef8e?auto=format&fit=crop&w=1000&q=80",
+      image: "/images/directions/moda.jpg",
       skills: [
         "Kiyimlarni bichish, andozalar yasash va bichish-tikish texnologiyasi",
         "Sanoat va maishiy tikuv mashinalari bilan ishlash",
@@ -313,48 +306,42 @@ export const siteConfig = {
       id: "gal-1",
       title: "O‘quv jarayoni va nazariy mashg‘ulotlar",
       category: "O‘quv jarayoni",
-      image:
-        "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80",
+      image: "/images/gallery/uquv.jpg",
       aspect: "wide",
     },
     {
       id: "gal-2",
       title: "Zamonaviy kompyuter sinfi",
       category: "Kompyuter sinflari",
-      image:
-        "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1000&q=80",
+      image: "/images/gallery/kompyuter.jpg",
       aspect: "square",
     },
     {
       id: "gal-3",
       title: "Avtomobillarga texnik xizmat ko‘rsatish ustaxonasi",
       category: "Avtomobil ustaxonasi",
-      image:
-        "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=1000&q=80",
+      image: "/images/gallery/avto.jpg",
       aspect: "square",
     },
     {
       id: "gal-4",
       title: "Pazandachilik va taom tayyorlash amaliyoti",
       category: "Oshpazlik",
-      image:
-        "https://images.unsplash.com/photo-1507048331197-7d4ac70811cf?auto=format&fit=crop&w=1200&q=80",
+      image: "/images/gallery/oshpazlik.jpg",
       aspect: "wide",
     },
     {
       id: "gal-5",
       title: "Tikuvchilik ustaxonasi va kiyim dizayni jarayoni",
       category: "Moda va tikuvchilik",
-      image:
-        "https://images.unsplash.com/photo-1584184924103-e310d9dc82fc?auto=format&fit=crop&w=1000&q=80",
+      image: "/images/gallery/moda.jpg",
       aspect: "square",
     },
     {
       id: "gal-6",
       title: "Talabalar hayoti va jamoaviy loyihalar",
       category: "Talabalar hayoti",
-      image:
-        "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80",
+      image: "/images/gallery/talabalar.jpg",
       aspect: "tall",
     },
   ] as GalleryItem[],
