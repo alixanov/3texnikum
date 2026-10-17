@@ -2,109 +2,173 @@
 
 import React from "react";
 import Image from "next/image";
-import { CheckCircle2, BookOpen, Target, Sparkles } from "lucide-react";
+import {
+  CheckCircle2,
+  BookOpen,
+  Sparkles,
+  Award,
+  ArrowRight,
+  GraduationCap,
+  Wrench,
+  Users,
+} from "lucide-react";
 import { motion } from "framer-motion";
 import { siteConfig } from "@/data/siteConfig";
 import SectionHeading from "../ui/SectionHeading";
 
 export default function AboutSection() {
+  const valueIcons = [Wrench, GraduationCap, Users];
+
   return (
-    <section id="haqimizda" className="py-16 sm:py-24 md:py-28 bg-white dark:bg-slate-900 transition-colors duration-300 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section
+      id="haqimizda"
+      className="py-16 sm:py-24 md:py-28 bg-slate-50/60 dark:bg-slate-900/60 transition-colors duration-300 relative overflow-hidden"
+    >
+      {/* Background ambient accents */}
+      <div className="absolute top-1/4 -left-48 w-96 h-96 bg-sky-400/10 dark:bg-sky-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-blue-500/10 dark:bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <SectionHeading
           badge={siteConfig.about.sectionBadge}
           title={siteConfig.about.title}
           subtitle="Ta’lim jarayoniga zamonaviy yondashuv va kasbiy amaliyot uyg‘unligi"
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Left Column: Visual Education Showcase */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch mt-10 sm:mt-14">
+          {/* Left Column: Visual Showcase & Embedded Metrics (Balanced Height) */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7 }}
-            className="lg:col-span-6 relative"
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-5 flex flex-col"
           >
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-slate-200/60 dark:shadow-slate-950/80 aspect-[4/3] border border-slate-100 dark:border-slate-800">
+            <div className="relative rounded-3xl overflow-hidden shadow-xl shadow-slate-200/50 dark:shadow-slate-950/60 border border-slate-200/80 dark:border-slate-800 bg-slate-900 h-full min-h-[480px] lg:min-h-[580px] flex flex-col justify-between group">
+              {/* Background Image */}
               <Image
                 src={siteConfig.about.image}
                 alt="Namangan 3-sonli texnikumida o‘quv jarayoni va amaliy mashg‘ulotlar"
                 fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover hover:scale-105 transition-transform duration-700"
+                sizes="(max-width: 1024px) 100vw, 42vw"
+                className="object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-[0.92]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6 text-white">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/80 backdrop-blur-md text-xs font-semibold mb-2">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  Amaliy ta’lim muhiti
+
+              {/* Gradient Overlays for readable text and depth */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-slate-950/40 pointer-events-none" />
+
+              {/* Top floating badge */}
+              <div className="relative z-10 p-5 sm:p-6 flex items-start justify-between">
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-sky-700 dark:text-sky-300 text-xs font-semibold shadow-md border border-white/20 dark:border-slate-700/50">
+                  <Award className="w-3.5 h-3.5 text-amber-500" />
+                  Davlat kasbiy ta’limi
                 </span>
-                <p className="text-sm font-medium text-slate-200 leading-snug">
-                  Nazariy bilimlarni mustahkamlash uchun tashkil etilgan zamonaviy ustaxonalar
-                </p>
+                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-slate-900/70 backdrop-blur-md text-slate-200 text-xs font-medium border border-white/10">
+                  <Sparkles className="w-3 h-3 text-sky-400" />
+                  Amaliy ustaxonalar
+                </span>
+              </div>
+
+              {/* Bottom metric cards & caption */}
+              <div className="relative z-10 p-5 sm:p-6 space-y-4">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="p-3.5 rounded-2xl bg-slate-900/85 backdrop-blur-md border border-white/10 text-white">
+                    <div className="text-2xl sm:text-3xl font-extrabold text-sky-400">
+                      70%
+                    </div>
+                    <div className="text-xs text-slate-300 font-medium mt-0.5">
+                      Amaliy mashg‘ulotlar
+                    </div>
+                  </div>
+                  <div className="p-3.5 rounded-2xl bg-slate-900/85 backdrop-blur-md border border-white/10 text-white">
+                    <div className="text-2xl sm:text-3xl font-extrabold text-sky-400">
+                      5 ta
+                    </div>
+                    <div className="text-xs text-slate-300 font-medium mt-0.5">
+                      Talabgir mutaxassislik
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-slate-950/75 backdrop-blur-md border border-white/10 text-slate-200">
+                  <p className="text-xs sm:text-sm font-medium leading-relaxed">
+                    Nazariy bilimlarni bevosita ishlab chiqarish va laboratoriya sharoitida mustahkamlash imkoniyati
+                  </p>
+                </div>
               </div>
             </div>
-
-            {/* Decorative background blur */}
-            <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-sky-100 dark:bg-sky-950/40 rounded-3xl -z-10" />
-            <div className="absolute -top-6 -right-6 w-32 h-32 bg-slate-100 dark:bg-slate-800/40 rounded-3xl -z-10" />
           </motion.div>
 
-          {/* Right Column: Exact Prompt Description & Institutional Values */}
+          {/* Right Column: Mission and Structured Educational Values */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7 }}
-            className="lg:col-span-6 space-y-8"
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-7 flex flex-col justify-between space-y-6"
           >
-            {/* The official description provided verbatim in prompt */}
-            <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-sky-50/70 to-slate-50 dark:from-slate-800/80 dark:to-slate-850 border border-sky-100/80 dark:border-slate-700/60 shadow-sm">
+            {/* Mission statement - refined and integrated */}
+            <div className="relative p-6 sm:p-7 rounded-3xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/70 shadow-sm">
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-sky-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-sky-600/20">
+                <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-sky-600 to-blue-500 text-white flex items-center justify-center shrink-0 shadow-md shadow-sky-500/20">
                   <BookOpen className="w-5 h-5" />
                 </div>
-                <div>
-                  <h3 className="text-base font-bold text-slate-900 dark:text-white mb-2">
-                    Bizning maqsadimiz
-                  </h3>
-                  <p className="text-slate-700 dark:text-slate-300 leading-relaxed font-normal text-base sm:text-lg">
+                <div className="space-y-2">
+                  <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400">
+                    <span>Bizning maqsadimiz</span>
+                  </div>
+                  <p className="text-slate-700 dark:text-slate-200 leading-relaxed font-normal text-base sm:text-lg">
                     «{siteConfig.about.leadText}»
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Educational values cards */}
-            <div className="space-y-4">
-              {siteConfig.about.values.map((item, index) => (
-                <div
-                  key={index}
-                  className="p-4 sm:p-5 rounded-xl border border-slate-100 dark:border-slate-800/80 bg-white dark:bg-slate-800/40 hover:border-sky-200 dark:hover:border-sky-500/50 hover:bg-slate-50/80 dark:hover:bg-slate-800/80 transition-all flex items-start gap-4 group"
-                >
-                  <div className="w-8 h-8 rounded-lg bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-400 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-sky-600 group-hover:text-white transition-colors">
-                    <CheckCircle2 className="w-4 h-4" />
+            {/* 3 Core Educational Values */}
+            <div className="space-y-3.5">
+              {siteConfig.about.values.map((item, index) => {
+                const IconComponent = valueIcons[index] || CheckCircle2;
+                return (
+                  <div
+                    key={index}
+                    className="p-4 sm:p-5 rounded-2xl border border-slate-200/70 dark:border-slate-800 bg-white/90 dark:bg-slate-800/50 hover:border-sky-300 dark:hover:border-sky-500/40 hover:bg-white dark:hover:bg-slate-800 hover:shadow-md transition-all duration-300 flex items-start gap-4 group"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 border border-sky-100 dark:border-sky-900/40 flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-105 group-hover:bg-sky-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                      <IconComponent className="w-5 h-5" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between">
+                        <h4 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
+                          {item.title}
+                        </h4>
+                        <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 group-hover:text-sky-500 transition-colors">
+                          0{index + 1}
+                        </span>
+                      </div>
+                      <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300/90 leading-relaxed mt-1">
+                        {item.desc}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white mb-1">
-                      {item.title}
-                    </h4>
-                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                      {item.desc}
-                    </p>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
-            <div className="pt-2">
+            {/* Action buttons bar */}
+            <div className="pt-2 flex flex-wrap items-center gap-4">
               <a
                 href="#yonalishlar"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 group"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-semibold text-sm shadow-md shadow-sky-500/20 hover:shadow-lg hover:shadow-sky-500/30 transition-all duration-200 group"
               >
                 <span>Mavjud yo‘nalishlar bilan tanishish</span>
-                <span className="transform transition-transform group-hover:translate-x-1">→</span>
+                <ArrowRight className="w-4 h-4 transform transition-transform group-hover:translate-x-1" />
+              </a>
+
+              <a
+                href="#aloqa"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-750 font-semibold text-sm transition-all duration-200"
+              >
+                <span>Qabul va konsultatsiya</span>
               </a>
             </div>
           </motion.div>
