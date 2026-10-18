@@ -4,6 +4,7 @@ import React, { useEffect, useCallback } from "react";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { GalleryItem } from "@/data/siteConfig";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface GalleryLightboxProps {
   items: GalleryItem[];
@@ -18,6 +19,8 @@ export default function GalleryLightbox({
   onClose,
   onNavigate,
 }: GalleryLightboxProps) {
+  const { t } = useLanguage();
+
   const handlePrev = useCallback(() => {
     if (currentIndex === null) return;
     const nextIdx = (currentIndex - 1 + items.length) % items.length;
@@ -62,7 +65,7 @@ export default function GalleryLightbox({
         type="button"
         onClick={onClose}
         className="absolute top-4 right-4 sm:top-6 sm:right-6 z-50 p-2.5 sm:p-3 rounded-full bg-white/10 hover:bg-white/25 active:scale-95 text-white transition-all"
-        aria-label="Galereyani yopish"
+        aria-label={t.common.close}
       >
         <X className="w-5 h-5 sm:w-6 sm:h-6" />
       </button>
@@ -72,7 +75,7 @@ export default function GalleryLightbox({
         type="button"
         onClick={handlePrev}
         className="absolute left-2 sm:left-8 top-1/2 -translate-y-1/2 z-50 p-2 sm:p-4 rounded-full bg-black/40 hover:bg-white/25 active:scale-95 text-white transition-all backdrop-blur-sm"
-        aria-label="Oldingi rasm"
+        aria-label={t.common.prevImage}
       >
         <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
       </button>
@@ -82,7 +85,7 @@ export default function GalleryLightbox({
         type="button"
         onClick={handleNext}
         className="absolute right-2 sm:right-8 top-1/2 -translate-y-1/2 z-50 p-2 sm:p-4 rounded-full bg-black/40 hover:bg-white/25 active:scale-95 text-white transition-all backdrop-blur-sm"
-        aria-label="Keyingi rasm"
+        aria-label={t.common.nextImage}
       >
         <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
       </button>
@@ -107,7 +110,7 @@ export default function GalleryLightbox({
           </div>
           <h3 className="text-sm sm:text-lg font-bold line-clamp-1">{currentItem.title}</h3>
           <p className="text-[11px] sm:text-xs text-slate-400 mt-0.5">
-            {currentIndex + 1} / {items.length} — Mavzuli ko‘rgazmali material
+            {currentIndex + 1} / {items.length} — {t.common.galleryMaterial}
           </p>
         </div>
       </div>

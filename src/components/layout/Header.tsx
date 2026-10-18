@@ -6,10 +6,22 @@ import { Menu, GraduationCap, ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/data/siteConfig";
 import MobileMenu from "./MobileMenu";
 import ThemeToggle from "@/components/theme/ThemeToggle";
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { t } = useLanguage();
+
+  const navLinks = [
+    { label: t.nav.home, href: "#hero" },
+    { label: t.nav.about, href: "#haqimizda" },
+    { label: t.nav.directions, href: "#yonalishlar" },
+    { label: t.nav.features, href: "#imkoniyatlar" },
+    { label: t.nav.gallery, href: "#galereya" },
+    { label: t.nav.contact, href: "#aloqa" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,24 +50,24 @@ export default function Header() {
             {/* Logo / Brand Name */}
             <a
               href="#hero"
-              className="group flex items-center gap-2.5 sm:gap-3 transition-transform focus:outline-none min-w-0 max-w-[65%] sm:max-w-none"
+              className="group flex items-center gap-2.5 sm:gap-3 transition-transform focus:outline-none min-w-0 max-w-[55%] sm:max-w-none"
             >
               <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-sky-600 dark:bg-sky-500 text-white dark:text-slate-950 flex items-center justify-center shrink-0 shadow-md shadow-sky-600/25 dark:shadow-sky-500/30 transition-all group-hover:scale-105">
                 <GraduationCap className="w-5 h-5 transition-transform group-hover:scale-110" />
               </div>
               <div className="flex flex-col min-w-0">
                 <span className="text-[10px] sm:text-xs uppercase tracking-wider font-bold text-sky-600 dark:text-sky-400 truncate">
-                  O‘zbekiston Respublikasi
+                  {t.common.republic}
                 </span>
                 <span className="font-black tracking-tight text-xs sm:text-base leading-tight text-slate-900 dark:text-white truncate">
-                  NAMANGAN 3-SONLI TEXNIKUM
+                  {t.common.siteName.toUpperCase()}
                 </span>
               </div>
             </a>
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5">
-              {siteConfig.navLinks.map((link) => (
+              {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
@@ -66,17 +78,20 @@ export default function Header() {
               ))}
             </nav>
 
-            {/* Action CTA, Theme Toggle & Mobile Trigger */}
-            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            {/* Action CTA, Language Switcher, Theme Toggle & Mobile Trigger */}
+            <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+              {/* Language Switcher */}
+              <LanguageSwitcher />
+
               {/* Theme Toggle Button */}
               <ThemeToggle />
 
               <a
                 href="#qabul"
-                className="hidden md:inline-flex items-center gap-1.5 px-3.5 xl:px-4 py-2 xl:py-2.5 text-xs xl:text-sm font-bold rounded-xl transition-all shadow-sm active:scale-95 bg-sky-600 hover:bg-sky-700 dark:bg-sky-500 dark:hover:bg-sky-400 text-white dark:text-slate-950 shadow-sky-600/20 dark:shadow-sky-500/30"
+                className="hidden xl:inline-flex items-center gap-1.5 px-3.5 py-2 text-xs xl:text-sm font-bold rounded-xl transition-all shadow-sm active:scale-95 bg-sky-600 hover:bg-sky-700 dark:bg-sky-500 dark:hover:bg-sky-400 text-white dark:text-slate-950 shadow-sky-600/20 dark:shadow-sky-500/30"
               >
-                <span>Qabul haqida ma’lumot</span>
-                <ArrowUpRight className="w-3.5 h-3.5 xl:w-4 xl:h-4 opacity-80" />
+                <span>{t.common.admissionBtn}</span>
+                <ArrowUpRight className="w-3.5 h-3.5 opacity-80" />
               </a>
 
               {/* Hamburger Toggle */}

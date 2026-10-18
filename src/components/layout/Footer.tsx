@@ -11,9 +11,20 @@ import {
 } from "lucide-react";
 import { siteConfig } from "@/data/siteConfig";
 import { InstagramIcon, FacebookIcon, TelegramIcon } from "@/components/ui/SocialIcons";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Footer() {
   const currentYear = 2025;
+  const { t } = useLanguage();
+
+  const navLinks = [
+    { label: t.nav.home, href: "#hero" },
+    { label: t.nav.about, href: "#haqimizda" },
+    { label: t.nav.directions, href: "#yonalishlar" },
+    { label: t.nav.features, href: "#imkoniyatlar" },
+    { label: t.nav.gallery, href: "#galereya" },
+    { label: t.nav.contact, href: "#aloqa" },
+  ];
 
   return (
     <footer className="bg-slate-950 text-slate-300 pt-16 pb-12 border-t border-slate-800">
@@ -26,12 +37,11 @@ export default function Footer() {
                 <GraduationCap className="w-6 h-6" />
               </div>
               <span className="font-extrabold text-white text-lg tracking-tight">
-                {siteConfig.name}
+                {t.common.siteName}
               </span>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-              Zamonaviy kasblar, amaliy bilimlar va yangi imkoniyatlar maskani.
-              Yoshlarning kasbiy salohiyatini yuksaltirishga qaratilgan davlat ta’lim muassasasi.
+              {t.footer.description}
             </p>
             <div className="pt-2 flex items-center gap-3">
               {siteConfig.contact.telegramUrl && (
@@ -73,10 +83,10 @@ export default function Footer() {
           {/* Column 2: Navigation Links (2 cols) */}
           <div className="lg:col-span-2 space-y-4">
             <h3 className="text-white font-semibold text-sm uppercase tracking-wider">
-              Bo‘limlar
+              {t.footer.quickLinks}
             </h3>
             <ul className="space-y-2.5 text-sm">
-              {siteConfig.navLinks.map((item) => (
+              {navLinks.map((item) => (
                 <li key={item.href}>
                   <a
                     href={item.href}
@@ -91,7 +101,7 @@ export default function Footer() {
                   href="#qabul"
                   className="text-sky-400 hover:text-sky-300 font-medium inline-block"
                 >
-                  Qabul haqida ma’lumot
+                  {t.common.admissionBtn}
                 </a>
               </li>
             </ul>
@@ -100,10 +110,10 @@ export default function Footer() {
           {/* Column 3: Directions (3 cols) */}
           <div className="lg:col-span-3 space-y-4">
             <h3 className="text-white font-semibold text-sm uppercase tracking-wider">
-              Yo‘nalishlar
+              {t.footer.ourDirections}
             </h3>
             <ul className="space-y-2.5 text-sm text-slate-400">
-              {siteConfig.directions.map((dir) => (
+              {t.directions.items.map((dir) => (
                 <li key={dir.id}>
                   <a
                     href="#yonalishlar"
@@ -119,7 +129,7 @@ export default function Footer() {
           {/* Column 4: Contact details (3 cols) */}
           <div className="lg:col-span-3 space-y-4">
             <h3 className="text-white font-semibold text-sm uppercase tracking-wider">
-              Aloqa
+              {t.footer.contactInfo}
             </h3>
             <ul className="space-y-3 text-sm text-slate-400">
               <li className="flex items-start gap-2.5">
@@ -162,7 +172,7 @@ export default function Footer() {
 
         {/* Bottom copyright row */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p>© {siteConfig.name}. Barcha huquqlar himoyalangan.</p>
+          <p>© {t.common.siteName}. {t.footer.rights}</p>
           <div className="flex items-center gap-4">
             <span>Professional Full-Stack Developer arxitekturasi</span>
             <a

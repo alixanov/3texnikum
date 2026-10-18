@@ -16,6 +16,7 @@ import { motion, useMotionValue, useAnimationFrame, wrap } from "framer-motion";
 import { siteConfig } from "@/data/siteConfig";
 import SectionHeading from "../ui/SectionHeading";
 import GalleryLightbox from "../ui/GalleryLightbox";
+import { useLanguage } from "@/context/LanguageContext";
 
 function CategoryRibbon({
   categories,
@@ -139,40 +140,46 @@ function CategoryRibbon({
 }
 
 export default function GallerySection() {
+  const { t } = useLanguage();
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-  const categories = [
-    "O‘quv jarayoni",
-    "Kompyuter sinflari",
-    "Avtomobil ustaxonasi",
-    "Oshpazlik",
-    "Moda va tikuvchilik",
-    "Talabalar hayoti",
+  const iconList = [
+    <BookOpen key="1" className="w-3.5 h-3.5" />,
+    <Monitor key="2" className="w-3.5 h-3.5" />,
+    <Wrench key="3" className="w-3.5 h-3.5" />,
+    <Utensils key="4" className="w-3.5 h-3.5" />,
+    <Scissors key="5" className="w-3.5 h-3.5" />,
+    <Users key="6" className="w-3.5 h-3.5" />,
   ];
 
-  const categoryIcons: Record<string, React.ReactNode> = {
-    "O‘quv jarayoni": <BookOpen className="w-3.5 h-3.5" />,
-    "Kompyuter sinflari": <Monitor className="w-3.5 h-3.5" />,
-    "Avtomobil ustaxonasi": <Wrench className="w-3.5 h-3.5" />,
-    "Oshpazlik": <Utensils className="w-3.5 h-3.5" />,
-    "Moda va tikuvchilik": <Scissors className="w-3.5 h-3.5" />,
-    "Talabalar hayoti": <Users className="w-3.5 h-3.5" />,
-  };
+  const categoryIcons: Record<string, React.ReactNode> = {};
+  t.gallery.categories.forEach((cat, idx) => {
+    categoryIcons[cat] = iconList[idx] || <Sparkles className="w-3.5 h-3.5" />;
+  });
 
-  const items = siteConfig.gallery;
+  const items = t.gallery.items.map((item, idx) => {
+    const base = siteConfig.gallery.find((g) => g.id === item.id) || siteConfig.gallery[idx];
+    return {
+      id: item.id,
+      title: item.title,
+      category: item.category,
+      image: base?.image || "/images/gallery/uquv.jpg",
+      aspect: base?.aspect || "square",
+    };
+  });
 
   return (
     <section id="galereya" className="py-16 sm:py-24 md:py-28 bg-slate-50 dark:bg-slate-950 transition-colors duration-300 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          badge="Foto galereya"
-          title="Texnikum hayotidan lavhalar"
-          subtitle="Nazariy darslar, amaliy mashg‘ulotlar, zamonaviy ustaxonalar va faol talabalik damlari"
+          badge={t.gallery.badge}
+          title={t.gallery.title}
+          subtitle={t.gallery.subtitle}
         />
 
         {/* Continuous Running Marquee Ribbon */}
         <CategoryRibbon
-          categories={categories}
+          categories={t.gallery.categories}
           categoryIcons={categoryIcons}
         />
 
@@ -223,7 +230,7 @@ export default function GallerySection() {
                     {item.title}
                   </h3>
                   <span className="text-[11px] sm:text-xs text-sky-300 font-medium flex items-center gap-1 mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    Kattalashtirish uchun bosing →
+                    {t.common.clickToEnlarge}
                   </span>
                 </div>
               </motion.div>
@@ -235,7 +242,7 @@ export default function GallerySection() {
 
       {/* Lightbox Modal */}
       <GalleryLightbox
-        items={siteConfig.gallery}
+        items={items as any}
         currentIndex={lightboxIndex}
         onClose={() => setLightboxIndex(null)}
         onNavigate={(idx) => setLightboxIndex(idx)}

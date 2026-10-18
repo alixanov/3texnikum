@@ -2,9 +2,10 @@
 
 import React, { useState } from "react";
 import { Send, CheckCircle2 } from "lucide-react";
-import { siteConfig } from "@/data/siteConfig";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function ContactForm() {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
@@ -32,10 +33,10 @@ export default function ContactForm() {
           <CheckCircle2 className="w-8 h-8" />
         </div>
         <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-          Murojaatingiz qabul qilindi!
+          {t.contact.form.successTitle}
         </h3>
         <p className="text-slate-600 dark:text-slate-300 text-sm max-w-md mx-auto leading-relaxed">
-          Rahmat! Sizning arizangiz qabul qilindi. Tez orada texnikum qabul komissiyasi mas’ul xodimi siz bilan bog‘lanadi.
+          {t.contact.form.successMessage}
         </p>
         <button
           type="button"
@@ -43,9 +44,9 @@ export default function ContactForm() {
             setSubmitted(false);
             setFormData({ fullName: "", phone: "", direction: "dasturlash", message: "" });
           }}
-          className="mt-4 px-6 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold rounded-xl transition-colors"
+          className="mt-4 px-6 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold rounded-xl transition-colors cursor-pointer"
         >
-          Yangi murojaat yuborish
+          {t.contact.form.resetBtn}
         </button>
       </div>
     );
@@ -58,10 +59,10 @@ export default function ContactForm() {
     >
       <div>
         <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-          Qabul bo‘yicha savol yoki ariza qoldirish
+          {t.contact.form.title}
         </h3>
         <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm mt-1">
-          Ma’lumotlaringizni qoldiring, biz siz bilan bog‘lanib to‘liq ma’lumot beramiz.
+          {t.contact.form.subtitle}
         </p>
       </div>
 
@@ -70,13 +71,13 @@ export default function ContactForm() {
           htmlFor="fullName"
           className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
         >
-          F.I.SH (Ism va familiyangiz) *
+          {t.contact.form.nameLabel} *
         </label>
         <input
           id="fullName"
           type="text"
           required
-          placeholder="Masalan: Sardor Aliyev"
+          placeholder={t.contact.form.namePlaceholder}
           value={formData.fullName}
           onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
           className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/80 focus:border-sky-500 dark:focus:border-sky-400 focus:ring-2 focus:ring-sky-500/20 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-sm outline-none transition-all"
@@ -88,13 +89,13 @@ export default function ContactForm() {
           htmlFor="phone"
           className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
         >
-          Telefon raqamingiz *
+          {t.contact.form.phoneLabel} *
         </label>
         <input
           id="phone"
           type="tel"
           required
-          placeholder="+998 90 123 45 67"
+          placeholder={t.contact.form.phonePlaceholder}
           value={formData.phone}
           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
           className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/80 focus:border-sky-500 dark:focus:border-sky-400 focus:ring-2 focus:ring-sky-500/20 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-sm outline-none transition-all"
@@ -106,7 +107,7 @@ export default function ContactForm() {
           htmlFor="direction"
           className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
         >
-          Qiziqtirayotgan yo‘nalish
+          {t.contact.form.directionLabel}
         </label>
         <select
           id="direction"
@@ -114,12 +115,12 @@ export default function ContactForm() {
           onChange={(e) => setFormData({ ...formData, direction: e.target.value })}
           className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-sky-500 dark:focus:border-sky-400 focus:ring-2 focus:ring-sky-500/20 text-sm outline-none transition-all"
         >
-          {siteConfig.directions.map((d) => (
+          {t.directions.items.map((d) => (
             <option key={d.id} value={d.id}>
               {d.title}
             </option>
           ))}
-          <option value="boshqa">Hali bir qarorga kelmadim (maslahat kerak)</option>
+          <option value="boshqa">{t.contact.form.undecidedOption}</option>
         </select>
       </div>
 
@@ -128,12 +129,12 @@ export default function ContactForm() {
           htmlFor="message"
           className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
         >
-          Qo‘shimcha savol yoki xabar (ixtiyoriy)
+          {t.contact.form.messageLabel}
         </label>
         <textarea
           id="message"
           rows={3}
-          placeholder="O‘zingizni qiziqtirgan savolni yozishingiz mumkin..."
+          placeholder={t.contact.form.messagePlaceholder}
           value={formData.message}
           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
           className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/80 focus:border-sky-500 dark:focus:border-sky-400 focus:ring-2 focus:ring-sky-500/20 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-sm outline-none transition-all resize-none"
@@ -146,11 +147,11 @@ export default function ContactForm() {
         className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 bg-sky-600 hover:bg-sky-500 text-white font-bold text-sm rounded-xl shadow-lg shadow-sky-600/25 transition-all hover:-translate-y-0.5 disabled:opacity-70 cursor-pointer"
       >
         <Send className="w-4 h-4" />
-        <span>{loading ? "Yuborilmoqda..." : "Murojaatni yuborish"}</span>
+        <span>{loading ? t.contact.form.submittingBtn : t.contact.form.submitBtn}</span>
       </button>
 
       <p className="text-[11px] text-slate-400 dark:text-slate-500 text-center">
-        Taqdim etilgan ma’lumotlar maxfiy saqlanadi va faqat qabul konsultatsiyasi uchun foydalaniladi.
+        {t.contact.form.privacyNote}
       </p>
     </form>
   );

@@ -4,25 +4,38 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
-import { siteConfig, DirectionItem } from "@/data/siteConfig";
+import { siteConfig } from "@/data/siteConfig";
 import SectionHeading from "../ui/SectionHeading";
 import DirectionModal from "../ui/DirectionModal";
+import { useLanguage } from "@/context/LanguageContext";
+import { DirectionItemTranslation } from "@/data/translations";
 
 export default function DirectionsSection() {
-  const [selectedDirection, setSelectedDirection] = useState<DirectionItem | null>(null);
+  const { t } = useLanguage();
+  const [selectedDirection, setSelectedDirection] = useState<
+    (DirectionItemTranslation & { image: string }) | null
+  >(null);
+
+  const directions = t.directions.items.map((item) => {
+    const base = siteConfig.directions.find((d) => d.id === item.id);
+    return {
+      ...item,
+      image: base?.image || "/images/directions/dasturlash.jpg",
+    };
+  });
 
   return (
     <section id="yonalishlar" className="py-16 sm:py-24 md:py-28 bg-slate-50 dark:bg-slate-950 transition-colors duration-300 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          badge="Mutaxassisliklar"
-          title="Ta’lim yo‘nalishlari"
-          subtitle="Zamonaviy mehnat bozorida yuqori talabga ega 5 ta asosiy kasbiy soha"
+          badge={t.directions.badge}
+          title={t.directions.title}
+          subtitle={t.directions.subtitle}
         />
 
         {/* 5 Specialty Cards Bento Grid (2 top featured 6-cols, 3 bottom 4-cols = 100% full rows) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 sm:gap-8">
-          {siteConfig.directions.map((item, index) => {
+          {directions.map((item, index) => {
             const isFeatured = index < 2;
             const colSpan = isFeatured ? "lg:col-span-6" : "lg:col-span-4";
             return (
@@ -73,15 +86,15 @@ export default function DirectionsSection() {
 
                   <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                     <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
-                      Amaliyotga yo‘naltirilgan
+                      {item.format}
                     </span>
 
                     <button
                       type="button"
-                      onClick={() => setSelectedDirection(item)}
+                      onClick={() => setSelectedDirection(item as any)}
                       className="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold text-sky-600 dark:text-sky-400 group-hover:text-white bg-sky-50 dark:bg-sky-950/60 group-hover:bg-sky-600 rounded-xl transition-all duration-200 shadow-sm border border-sky-100 dark:border-sky-900/40 cursor-pointer"
                     >
-                      <span>Batafsil</span>
+                      <span>{t.common.moreInfo}</span>
                       <ArrowRight className="w-3.5 h-3.5 transform transition-transform duration-200 group-hover:translate-x-1" />
                     </button>
                   </div>

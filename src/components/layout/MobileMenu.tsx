@@ -5,6 +5,8 @@ import Link from "next/link";
 import { X, Phone, Mail, MapPin, Send } from "lucide-react";
 import { siteConfig } from "@/data/siteConfig";
 import ThemeToggle from "@/components/theme/ThemeToggle";
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -12,6 +14,17 @@ interface MobileMenuProps {
 }
 
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
+  const { t } = useLanguage();
+
+  const navLinks = [
+    { label: t.nav.home, href: "#hero" },
+    { label: t.nav.about, href: "#haqimizda" },
+    { label: t.nav.directions, href: "#yonalishlar" },
+    { label: t.nav.features, href: "#imkoniyatlar" },
+    { label: t.nav.gallery, href: "#galereya" },
+    { label: t.nav.contact, href: "#aloqa" },
+  ];
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -45,33 +58,38 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           <div className="flex items-center justify-between pb-6 border-b border-slate-100 dark:border-slate-800">
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400 block">
-                Rasmiy portal
+                {t.common.republic}
               </span>
               <span className="font-extrabold text-slate-900 dark:text-white text-sm tracking-tight">
-                NAMANGAN 3-SONLI TEXNIKUM
+                {t.common.siteName.toUpperCase()}
               </span>
             </div>
             <button
               type="button"
               onClick={onClose}
               className="p-2 -mr-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-              aria-label="Menyuni yopish"
+              aria-label={t.common.close}
             >
               <X className="w-6 h-6" />
             </button>
           </div>
 
+          {/* Language Switcher in Mobile Drawer */}
+          <div className="py-4 border-b border-slate-100 dark:border-slate-800">
+            <LanguageSwitcher variant="full" />
+          </div>
+
           {/* Theme Switcher Row */}
-          <div className="py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+          <div className="py-3 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
-              Ko‘rinish rejimi:
+              Ko‘rinish / Тема:
             </span>
             <ThemeToggle showText />
           </div>
 
           {/* Navigation Links */}
           <nav className="mt-4 flex flex-col space-y-1">
-            {siteConfig.navLinks.map((link) => (
+            {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
@@ -89,7 +107,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               onClick={onClose}
               className="w-full flex items-center justify-center gap-2 py-3.5 px-4 bg-sky-600 hover:bg-sky-700 text-white font-semibold text-sm rounded-xl shadow-md shadow-sky-600/20 transition-all text-center"
             >
-              <span>Qabul haqida ma’lumot</span>
+              <span>{t.common.admissionBtn}</span>
             </a>
           </div>
         </div>

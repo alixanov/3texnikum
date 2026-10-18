@@ -15,8 +15,10 @@ import {
 import { motion } from "framer-motion";
 import { siteConfig } from "@/data/siteConfig";
 import SectionHeading from "../ui/SectionHeading";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function AboutSection() {
+  const { t } = useLanguage();
   const valueIcons = [Wrench, GraduationCap, Users];
 
   return (
@@ -30,9 +32,9 @@ export default function AboutSection() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <SectionHeading
-          badge={siteConfig.about.sectionBadge}
-          title={siteConfig.about.title}
-          subtitle="Ta’lim jarayoniga zamonaviy yondashuv va kasbiy amaliyot uyg‘unligi"
+          badge={t.about.badge}
+          title={t.about.title}
+          subtitle={t.hero.subheadline}
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch mt-10 sm:mt-14">
@@ -48,7 +50,7 @@ export default function AboutSection() {
               {/* Background Image */}
               <Image
                 src={siteConfig.about.image}
-                alt="Namangan 3-sonli texnikumida o‘quv jarayoni va amaliy mashg‘ulotlar"
+                alt={t.about.title}
                 fill
                 sizes="(max-width: 1024px) 100vw, 42vw"
                 className="object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-[0.92]"
@@ -61,11 +63,7 @@ export default function AboutSection() {
               <div className="relative z-10 p-5 sm:p-6 flex items-start justify-between">
                 <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-sky-700 dark:text-sky-300 text-xs font-semibold shadow-md border border-white/20 dark:border-slate-700/50">
                   <Award className="w-3.5 h-3.5 text-amber-500" />
-                  Davlat kasbiy ta’limi
-                </span>
-                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-slate-900/70 backdrop-blur-md text-slate-200 text-xs font-medium border border-white/10">
-                  <Sparkles className="w-3 h-3 text-sky-400" />
-                  Amaliy ustaxonalar
+                  {t.hero.badge}
                 </span>
               </div>
 
@@ -74,25 +72,25 @@ export default function AboutSection() {
                 <div className="grid grid-cols-2 gap-3">
                   <div className="p-3.5 rounded-2xl bg-slate-900/85 backdrop-blur-md border border-white/10 text-white">
                     <div className="text-2xl sm:text-3xl font-extrabold text-sky-400">
-                      70%
+                      {t.hero.stats.practiceValue}
                     </div>
                     <div className="text-xs text-slate-300 font-medium mt-0.5">
-                      Amaliy mashg‘ulotlar
+                      {t.hero.stats.practiceLabel}
                     </div>
                   </div>
                   <div className="p-3.5 rounded-2xl bg-slate-900/85 backdrop-blur-md border border-white/10 text-white">
                     <div className="text-2xl sm:text-3xl font-extrabold text-sky-400">
-                      5 ta
+                      {t.hero.stats.specialtiesValue}
                     </div>
                     <div className="text-xs text-slate-300 font-medium mt-0.5">
-                      Talabgir mutaxassislik
+                      {t.hero.stats.specialtiesLabel}
                     </div>
                   </div>
                 </div>
 
                 <div className="p-3.5 rounded-2xl bg-slate-950/75 backdrop-blur-md border border-white/10 text-slate-200">
                   <p className="text-xs sm:text-sm font-medium leading-relaxed">
-                    Nazariy bilimlarni bevosita ishlab chiqarish va laboratoriya sharoitida mustahkamlash imkoniyati
+                    {t.features.items[0]?.description}
                   </p>
                 </div>
               </div>
@@ -115,10 +113,10 @@ export default function AboutSection() {
                 </div>
                 <div className="space-y-2">
                   <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400">
-                    <span>Bizning maqsadimiz</span>
+                    <span>{t.about.title}</span>
                   </div>
                   <p className="text-slate-700 dark:text-slate-200 leading-relaxed font-normal text-base sm:text-lg">
-                    «{siteConfig.about.leadText}»
+                    «{t.about.leadText}»
                   </p>
                 </div>
               </div>
@@ -126,7 +124,7 @@ export default function AboutSection() {
 
             {/* 3 Core Educational Values */}
             <div className="space-y-3.5">
-              {siteConfig.about.values.map((item, index) => {
+              {t.about.values.map((item, index) => {
                 const IconComponent = valueIcons[index] || CheckCircle2;
                 return (
                   <div
@@ -160,7 +158,7 @@ export default function AboutSection() {
                 href="#yonalishlar"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-semibold text-sm shadow-md shadow-sky-500/20 hover:shadow-lg hover:shadow-sky-500/30 transition-all duration-200 group"
               >
-                <span>Mavjud yo‘nalishlar bilan tanishish</span>
+                <span>{t.hero.ctaPrimary}</span>
                 <ArrowRight className="w-4 h-4 transform transition-transform group-hover:translate-x-1" />
               </a>
 
@@ -168,7 +166,7 @@ export default function AboutSection() {
                 href="#aloqa"
                 className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-750 font-semibold text-sm transition-all duration-200"
               >
-                <span>Qabul va konsultatsiya</span>
+                <span>{t.common.admissionBtn}</span>
               </a>
             </div>
           </motion.div>

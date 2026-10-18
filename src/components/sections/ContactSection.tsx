@@ -13,15 +13,18 @@ import { siteConfig } from "@/data/siteConfig";
 import SectionHeading from "../ui/SectionHeading";
 import ContactForm from "../ui/ContactForm";
 import { TelegramIcon, InstagramIcon, FacebookIcon } from "../ui/SocialIcons";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function ContactSection() {
+  const { t } = useLanguage();
+
   return (
     <section id="aloqa" className="py-16 sm:py-24 md:py-28 bg-slate-50 dark:bg-slate-950 transition-colors duration-300 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          badge="Aloqa"
-          title="Biz bilan bog‘laning"
-          subtitle="Qabul jarayoni, mutaxassisliklar va boshqa barcha masalalar bo‘yicha to‘liq ma’lumot oling"
+          badge={t.contact.badge}
+          title={t.contact.title}
+          subtitle={t.contact.subtitle}
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
@@ -36,7 +39,7 @@ export default function ContactSection() {
             {/* Contact details cards */}
             <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-6 transition-colors">
               <h3 className="text-xl font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-4">
-                Rasmiy aloqa ma’lumotlari
+                {t.contact.infoTitle}
               </h3>
 
               <div className="space-y-5">
@@ -47,7 +50,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <span className="block text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                      Manzil
+                      {t.contact.addressLabel}
                     </span>
                     <p className="text-sm sm:text-base font-semibold text-slate-900 dark:text-slate-100 mt-0.5">
                       {siteConfig.contact.address}
@@ -65,7 +68,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <span className="block text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                      Telefon raqamlari
+                      {t.contact.phoneLabel}
                     </span>
                     <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-1 sm:gap-3 mt-0.5">
                       {siteConfig.contact.phones.map((item, idx) => (
@@ -83,7 +86,7 @@ export default function ContactSection() {
                       ))}
                     </div>
                     <span className="text-xs text-slate-500 dark:text-slate-400 block mt-1">
-                      Qabul komissiyasi va ma’muriyat aloqa raqamlari
+                      {t.contact.phoneNote}
                     </span>
                   </div>
                 </div>
@@ -95,7 +98,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <span className="block text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                      Elektron pochta
+                      {t.contact.emailLabel}
                     </span>
                     <a
                       href={`mailto:${siteConfig.contact.email}`}
@@ -113,13 +116,13 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <span className="block text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                      Ish vaqti
+                      {t.contact.workingHoursLabel}
                     </span>
                     <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 mt-0.5">
                       {siteConfig.contact.workingHours}
                     </p>
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                      {siteConfig.contact.restDay}
+                      {t.contact.restDayLabel}
                     </p>
                   </div>
                 </div>
@@ -128,7 +131,7 @@ export default function ContactSection() {
               {/* Social links & direct Telegram contact */}
               <div className="pt-6 border-t border-slate-100 dark:border-slate-800 space-y-4">
                 <span className="block text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                  Ijtimoiy tarmoqlar va messenjerlar
+                  {t.contact.socialLabel}
                 </span>
 
                 <div className="flex flex-wrap gap-3">
@@ -140,7 +143,7 @@ export default function ContactSection() {
                       className="inline-flex items-center gap-2 px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white rounded-xl text-xs font-bold shadow-md shadow-sky-500/20 transition-all hover:-translate-y-0.5"
                     >
                       <TelegramIcon className="w-3.5 h-3.5" />
-                      <span>Telegram kanaliga o‘tish</span>
+                      <span>{t.contact.telegramChannelBtn}</span>
                       <ExternalLink className="w-3 h-3 opacity-80" />
                     </a>
                   )}
@@ -177,9 +180,9 @@ export default function ContactSection() {
               <div className="flex items-center justify-between mb-3 px-2">
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 flex items-center gap-2">
                   <MapPin className="w-4 h-4 text-sky-600 dark:text-sky-400" />
-                  Xaritadagi joylashuvi
+                  {t.contact.mapTitle}
                 </span>
-                <span className="text-xs text-slate-400 dark:text-slate-500">Namangan, O‘zbekiston</span>
+                <span className="text-xs text-slate-400 dark:text-slate-500">{t.contact.mapSubtitle}</span>
               </div>
               <div className="w-full h-56 sm:h-64 rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 relative">
                 <iframe
