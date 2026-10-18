@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Image from "next/image";
-import { Maximize2, Info } from "lucide-react";
+import { Maximize2, Info, ChevronLeft, ChevronRight, Layers } from "lucide-react";
 import { motion } from "framer-motion";
 import { siteConfig } from "@/data/siteConfig";
 import SectionHeading from "../ui/SectionHeading";
@@ -11,6 +11,7 @@ import GalleryLightbox from "../ui/GalleryLightbox";
 export default function GallerySection() {
   const [activeCategory, setActiveCategory] = useState<string>("Barchasi");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const ribbonRef = useRef<HTMLDivElement>(null);
 
   const categories = [
     "Barchasi",
@@ -21,6 +22,13 @@ export default function GallerySection() {
     "Moda va tikuvchilik",
     "Talabalar hayoti",
   ];
+
+  const scrollRibbon = (direction: "left" | "right") => {
+    if (ribbonRef.current) {
+      const scrollAmount = direction === "left" ? -220 : 220;
+      ribbonRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  };
 
   const filteredItems =
     activeCategory === "Barchasi"
@@ -34,7 +42,7 @@ export default function GallerySection() {
   };
 
   return (
-    <section id="galereya" className="py-16 sm:py-24 md:py-28 bg-slate-50 dark:bg-slate-950 transition-colors duration-300 relative">
+    <section id="galereya" className="py-16 sm:py-24 md:py-28 bg-slate-50 dark:bg-slate-950 transition-colors duration-300 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="Foto galereya"
@@ -42,22 +50,64 @@ export default function GallerySection() {
           subtitle="Nazariy darslar, amaliy mashg‘ulotlar, zamonaviy ustaxonalar va faol talabalik damlari"
         />
 
-        {/* Filter Pills with smooth horizontal scrolling on mobile */}
-        <div className="flex items-center sm:justify-center overflow-x-auto sm:overflow-visible gap-2 pb-3 sm:pb-0 mb-8 sm:mb-12 scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0">
-          {categories.map((cat) => (
+        {/* Interactive Category Ribbon ("Lenta") */}
+        <div className="relative max-w-4xl mx-auto mb-10 sm:mb-14">
+          {/* Subtle Side Fade Overlays for mobile лента scroll */}
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-slate-50 dark:from-slate-950 to-transparent z-10 sm:hidden" />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-slate-50 dark:from-slate-950 to-transparent z-10 sm:hidden" />
+
+          <div className="flex items-center justify-center gap-2">
+            {/* Scroll Left Button (desktop/tablet) */}
             <button
-              key={cat}
               type="button"
-              onClick={() => setActiveCategory(cat)}
-              className={`shrink-0 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all active:scale-95 ${
-                activeCategory === cat
-                  ? "bg-sky-600 text-white shadow-md shadow-sky-600/25"
-                  : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200/60 dark:border-slate-800"
-              }`}
+              onClick={() => scrollRibbon("left")}
+              className="hidden md:flex w-9 h-9 rounded-full bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 items-center justify-center text-slate-500 dark:text-slate-400 hover:text-sky-600 dark:hover:text-sky-400 shadow-sm hover:shadow transition-all shrink-0 cursor-pointer active:scale-95"
+              aria-label="Lentani chapga surish"
             >
-              {cat}
+              <ChevronLeft className="w-4 h-4" />
             </button>
-          ))}
+
+            {/* The Unified Ribbon Track */}
+            <div
+              ref={ribbonRef}
+              className="flex items-center gap-1.5 p-1.5 rounded-2xl sm:rounded-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/90 dark:border-slate-800 shadow-lg shadow-slate-200/40 dark:shadow-slate-950/50 overflow-x-auto scrollbar-none max-w-full"
+            >
+              {categories.map((cat) => {
+                const isActive = activeCategory === cat;
+                return (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => setActiveCategory(cat)}
+                    className={`relative shrink-0 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-full text-xs sm:text-sm font-semibold transition-colors duration-200 z-10 cursor-pointer ${
+                      isActive
+                        ? "text-white"
+                        : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeCategoryLenta"
+                        className="absolute inset-0 bg-gradient-to-r from-sky-600 to-blue-600 rounded-xl sm:rounded-full shadow-md shadow-sky-600/30 -z-10"
+                        transition={{ type: "spring", stiffness: 450, damping: 35 }}
+                      />
+                    )}
+                    <span>{cat}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Scroll Right Button (desktop/tablet) */}
+            <button
+              type="button"
+              onClick={() => scrollRibbon("right")}
+              className="hidden md:flex w-9 h-9 rounded-full bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 items-center justify-center text-slate-500 dark:text-slate-400 hover:text-sky-600 dark:hover:text-sky-400 shadow-sm hover:shadow transition-all shrink-0 cursor-pointer active:scale-95"
+              aria-label="Lentani o‘ngga surish"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
         {/* Responsive Gallery Grid */}
