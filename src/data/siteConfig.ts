@@ -50,9 +50,12 @@ export const siteConfig = {
     phoneDisplay: "+998 97 231 00 81",
     phoneSecondary: "+998945070204",
     phoneSecondaryDisplay: "+998 94 507 02 04",
+    phoneThird: "+998934978555",
+    phoneThirdDisplay: "+998 93 497 85 55",
     phones: [
       { number: "+998972310081", display: "+998 97 231 00 81" },
       { number: "+998945070204", display: "+998 94 507 02 04" },
+      { number: "+998934978555", display: "+998 93 497 85 55" },
     ],
     email: "info@namangan3tex.uz",
     workingHours: "Dushanba — Shanba: 08:30 – 17:00",

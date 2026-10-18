@@ -67,20 +67,20 @@ export default function ContactSection() {
                     <span className="block text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                       Telefon raqamlari
                     </span>
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 mt-0.5">
-                      <a
-                        href={`tel:${siteConfig.contact.phone}`}
-                        className="text-base sm:text-lg font-bold text-slate-900 dark:text-white hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
-                      >
-                        {siteConfig.contact.phoneDisplay}
-                      </a>
-                      <span className="hidden sm:inline text-slate-300 dark:text-slate-700">•</span>
-                      <a
-                        href={`tel:${siteConfig.contact.phoneSecondary}`}
-                        className="text-base sm:text-lg font-bold text-slate-900 dark:text-white hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
-                      >
-                        {siteConfig.contact.phoneSecondaryDisplay}
-                      </a>
+                    <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-1 sm:gap-3 mt-0.5">
+                      {siteConfig.contact.phones.map((item, idx) => (
+                        <React.Fragment key={item.number}>
+                          {idx > 0 && (
+                            <span className="hidden sm:inline text-slate-300 dark:text-slate-700">•</span>
+                          )}
+                          <a
+                            href={`tel:${item.number}`}
+                            className="text-base sm:text-lg font-bold text-slate-900 dark:text-white hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
+                          >
+                            {item.display}
+                          </a>
+                        </React.Fragment>
+                      ))}
                     </div>
                     <span className="text-xs text-slate-500 dark:text-slate-400 block mt-1">
                       Qabul komissiyasi va ma’muriyat aloqa raqamlari

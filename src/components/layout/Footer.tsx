@@ -126,24 +126,22 @@ export default function Footer() {
                 <MapPin className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
                 <span className="leading-snug">{siteConfig.contact.region}</span>
               </li>
-              <li className="flex flex-col gap-1">
-                <div className="flex items-center gap-2.5">
-                  <Phone className="w-4 h-4 text-sky-400 shrink-0" />
-                  <a
-                    href={`tel:${siteConfig.contact.phone}`}
-                    className="hover:text-white transition-colors"
-                  >
-                    {siteConfig.contact.phoneDisplay}
-                  </a>
-                </div>
-                <div className="flex items-center gap-2.5 pl-6.5">
-                  <a
-                    href={`tel:${siteConfig.contact.phoneSecondary}`}
-                    className="hover:text-white transition-colors"
-                  >
-                    {siteConfig.contact.phoneSecondaryDisplay}
-                  </a>
-                </div>
+              <li className="flex flex-col gap-1.5">
+                {siteConfig.contact.phones.map((item, idx) => (
+                  <div key={item.number} className="flex items-center gap-2.5">
+                    {idx === 0 ? (
+                      <Phone className="w-4 h-4 text-sky-400 shrink-0" />
+                    ) : (
+                      <span className="w-4 shrink-0" />
+                    )}
+                    <a
+                      href={`tel:${item.number}`}
+                      className="hover:text-white transition-colors"
+                    >
+                      {item.display}
+                    </a>
+                  </div>
+                ))}
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-sky-400 shrink-0" />

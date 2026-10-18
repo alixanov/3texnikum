@@ -100,18 +100,22 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             <MapPin className="w-4 h-4 text-sky-600 dark:text-sky-400 shrink-0 mt-0.5" />
             <span>{siteConfig.contact.region}</span>
           </div>
-          <div className="flex flex-col gap-1 text-xs text-slate-600 dark:text-slate-400">
-            <div className="flex items-center gap-3">
-              <Phone className="w-4 h-4 text-sky-600 dark:text-sky-400 shrink-0" />
-              <a href={`tel:${siteConfig.contact.phone}`} className="hover:text-sky-600 dark:hover:text-sky-400 font-semibold text-slate-900 dark:text-slate-200">
-                {siteConfig.contact.phoneDisplay}
-              </a>
-            </div>
-            <div className="flex items-center gap-3 pl-7">
-              <a href={`tel:${siteConfig.contact.phoneSecondary}`} className="hover:text-sky-600 dark:hover:text-sky-400 font-semibold text-slate-900 dark:text-slate-200">
-                {siteConfig.contact.phoneSecondaryDisplay}
-              </a>
-            </div>
+          <div className="flex flex-col gap-1.5 text-xs text-slate-600 dark:text-slate-400">
+            {siteConfig.contact.phones.map((item, idx) => (
+              <div key={item.number} className="flex items-center gap-3">
+                {idx === 0 ? (
+                  <Phone className="w-4 h-4 text-sky-600 dark:text-sky-400 shrink-0" />
+                ) : (
+                  <span className="w-4 shrink-0" />
+                )}
+                <a
+                  href={`tel:${item.number}`}
+                  className="hover:text-sky-600 dark:hover:text-sky-400 font-semibold text-slate-900 dark:text-slate-200"
+                >
+                  {item.display}
+                </a>
+              </div>
+            ))}
           </div>
           <div className="flex items-center gap-3 text-xs text-slate-600 dark:text-slate-400">
             <Mail className="w-4 h-4 text-sky-600 dark:text-sky-400 shrink-0" />
