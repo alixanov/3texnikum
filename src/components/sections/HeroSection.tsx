@@ -19,7 +19,7 @@ export default function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative min-h-[100dvh] flex flex-col justify-between items-center bg-slate-950 overflow-hidden pt-16 sm:pt-24 lg:pt-20 pb-3 sm:pb-5"
+      className="relative min-h-[100dvh] lg:h-[100dvh] flex flex-col justify-between items-center bg-slate-950 overflow-hidden pt-16 sm:pt-20 lg:pt-20 pb-4 sm:pb-6"
     >
       {/* Background Image with Dark Vignette Overlay */}
       <div className="absolute inset-0 z-0 pointer-events-none select-none">
@@ -36,80 +36,80 @@ export default function HeroSection() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-10%,rgba(14,165,233,0.2),rgba(255,255,255,0))]" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto flex flex-col items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto flex flex-col items-center justify-center">
         <div className="max-w-4xl mx-auto text-center">
           {/* Institutional Badge */}
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-2 rounded-full bg-sky-500/10 border border-sky-400/25 backdrop-blur-md text-sky-300 text-[10px] sm:text-sm font-semibold mb-2.5 sm:mb-4 lg:mb-5 shadow-inner"
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-sky-500/10 border border-sky-400/25 backdrop-blur-md text-sky-300 text-[10px] sm:text-xs font-semibold mb-2 sm:mb-3 lg:mb-4 shadow-inner"
           >
-            <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-sky-400 shrink-0" />
+            <ShieldCheck className="w-3.5 h-3.5 text-sky-400 shrink-0" />
             <span className="truncate">{t.hero.badge}</span>
           </motion.div>
 
           {/* Main Headline */}
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-white tracking-tight leading-[1.18] sm:leading-[1.12] text-balance drop-shadow-sm"
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-xl xs:text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-[1.15] text-balance drop-shadow-sm"
           >
             {t.hero.headline}
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="mt-2.5 sm:mt-4 lg:mt-5 text-xs sm:text-base lg:text-lg text-slate-300 font-normal leading-relaxed text-balance max-w-2xl mx-auto"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-2 sm:mt-3 lg:mt-4 text-xs sm:text-sm lg:text-base text-slate-300 font-normal leading-relaxed text-balance max-w-2xl mx-auto"
           >
             {t.hero.subheadline}
           </motion.p>
 
-          {/* CTA Buttons */}
+          {/* CTA Buttons - Compact side-by-side on mobile, centered row on desktop */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.45 }}
-            className="mt-4 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2.5 sm:gap-4 max-w-md sm:max-w-none mx-auto"
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-3.5 sm:mt-5 lg:mt-6 grid grid-cols-2 gap-2 max-w-xs mx-auto sm:flex sm:flex-row sm:items-center sm:justify-center sm:max-w-none sm:gap-3"
           >
             <a
               href="#yonalishlar"
-              className="inline-flex items-center justify-center gap-2.5 px-5 sm:px-8 py-3 sm:py-4 text-xs sm:text-base font-bold text-white bg-sky-600 hover:bg-sky-500 rounded-xl shadow-lg shadow-sky-600/30 hover:shadow-sky-500/40 transition-all hover:-translate-y-0.5 active:scale-[0.98]"
+              className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-white bg-sky-600 hover:bg-sky-500 rounded-xl shadow-md shadow-sky-600/30 transition-all active:scale-[0.98] text-center"
             >
-              <Compass className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
-              <span>{t.hero.ctaPrimary}</span>
-              <ArrowRight className="w-4 h-4 shrink-0" />
+              <Compass className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+              <span className="truncate">{t.hero.ctaPrimary}</span>
+              <ArrowRight className="w-3.5 h-3.5 shrink-0 hidden sm:inline" />
             </a>
 
             <a
               href="#aloqa"
-              className="inline-flex items-center justify-center gap-2.5 px-5 sm:px-8 py-3 sm:py-4 text-xs sm:text-base font-bold text-slate-200 hover:text-white bg-white/10 hover:bg-white/15 border border-white/15 rounded-xl backdrop-blur-md transition-all hover:-translate-y-0.5 active:scale-[0.98]"
+              className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-slate-200 hover:text-white bg-white/10 hover:bg-white/15 border border-white/15 rounded-xl backdrop-blur-md transition-all active:scale-[0.98] text-center"
             >
-              <PhoneCall className="w-4 h-4 sm:w-5 sm:h-5 text-sky-400 shrink-0" />
-              <span>{t.hero.ctaSecondary}</span>
+              <PhoneCall className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-sky-400 shrink-0" />
+              <span className="truncate">{t.hero.ctaSecondary}</span>
             </a>
           </motion.div>
 
-          {/* Key Quick Indicators with responsive touch cards */}
+          {/* Key Quick Indicators with tight responsive cards */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-4 sm:mt-8 pt-4 sm:pt-6 border-t border-white/10 grid grid-cols-3 gap-2 sm:gap-4 max-w-2xl mx-auto"
+            transition={{ duration: 0.7, delay: 0.4 }}
+            className="mt-3.5 sm:mt-5 lg:mt-6 pt-3 sm:pt-4 border-t border-white/10 grid grid-cols-3 gap-1.5 sm:gap-3 max-w-2xl mx-auto"
           >
             {quickStats.map((stat, i) => (
               <div
                 key={i}
-                className="p-2 sm:p-4 rounded-xl sm:rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-sm text-center flex flex-col justify-center min-w-0"
+                className="p-1.5 sm:p-3 rounded-xl bg-white/[0.04] border border-white/10 backdrop-blur-sm text-center flex flex-col justify-center min-w-0"
               >
-                <span className="block text-base sm:text-2xl lg:text-3xl font-black text-white truncate">
+                <span className="block text-sm xs:text-base sm:text-xl lg:text-2xl font-black text-white truncate">
                   {stat.value}
                 </span>
-                <span className="block text-[9px] sm:text-xs text-slate-400 mt-0.5 sm:mt-1 font-medium leading-tight">
+                <span className="block text-[8px] xs:text-[9px] sm:text-xs text-slate-400 mt-0.5 font-medium leading-tight truncate">
                   {stat.label}
                 </span>
               </div>
@@ -119,17 +119,17 @@ export default function HeroSection() {
       </div>
 
       {/* Smooth bottom indicator with link to #haqimizda */}
-      <div className="relative z-10 pb-3 sm:pb-4">
+      <div className="relative z-10 pb-2 hidden lg:flex">
         <a
           href="#haqimizda"
           aria-label={t.common.learnMore}
-          className="hidden lg:flex flex-col items-center gap-1.5 opacity-70 hover:opacity-100 transition-opacity cursor-pointer group focus:outline-none"
+          className="flex flex-col items-center gap-1 opacity-60 hover:opacity-100 transition-opacity cursor-pointer group focus:outline-none"
         >
-          <span className="text-[10px] uppercase tracking-widest text-slate-400 font-semibold group-hover:text-sky-400 transition-colors">
+          <span className="text-[9px] uppercase tracking-widest text-slate-400 font-semibold group-hover:text-sky-400 transition-colors">
             {t.common.learnMore}
           </span>
-          <div className="w-5 h-7 rounded-full border-2 border-slate-500/50 flex items-start justify-center p-1 group-hover:border-sky-400 transition-colors">
-            <div className="w-1.5 h-2 bg-sky-400 rounded-full animate-bounce" />
+          <div className="w-4 h-6 rounded-full border border-slate-500/50 flex items-start justify-center p-0.5 group-hover:border-sky-400 transition-colors">
+            <div className="w-1 h-1.5 bg-sky-400 rounded-full animate-bounce" />
           </div>
         </a>
       </div>
