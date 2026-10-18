@@ -28,22 +28,37 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: siteConfig.title,
-  description: siteConfig.description,
+  title: "Namangan 3-sonli texnikum — Rasmiy veb-sayti",
+  description:
+    "Namangan 3-sonli texnikumi — zamonaviy kasblar, amaliy ta’lim va yangi imkoniyatlar maskani. 2025/2026 o‘quv yili qabuli va yo‘nalishlar.",
   keywords: siteConfig.keywords,
   authors: [{ name: siteConfig.name }],
-  metadataBase: new URL("https://namangan3tex.uz"),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://3texnikum.vercel.app"
+  ),
   openGraph: {
-    title: siteConfig.title,
-    description: siteConfig.description,
-    siteName: siteConfig.name,
+    title: "Rasmiy veb-sayti — Kelajagingizni biz bilan quring!",
+    description:
+      "Zamonaviy kasblar, amaliy ta’lim va yangi imkoniyatlar maskani. 2025/2026 o‘quv yili qabuli va yo‘nalishlar.",
+    siteName: "Namangan 3-sonli texnikum",
     locale: "uz_UZ",
     type: "website",
+    url: "https://3texnikum.vercel.app",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Namangan 3-sonli texnikum",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.title,
-    description: siteConfig.description,
+    title: "Namangan 3-sonli texnikum — Rasmiy veb-sayti",
+    description:
+      "Zamonaviy kasblar, amaliy ta’lim va yangi imkoniyatlar maskani. 2025/2026 o‘quv yili qabuli va yo‘nalishlar.",
+    images: ["/og-image.jpg"],
   },
   robots: {
     index: true,
