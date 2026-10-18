@@ -2,8 +2,9 @@
 
 import React from "react";
 import { useLanguage } from "@/context/LanguageContext";
-import { languages, Language } from "@/data/translations";
+import { languages } from "@/data/translations";
 import { Globe } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface LanguageSwitcherProps {
   variant?: "segmented" | "full";
@@ -18,10 +19,10 @@ export default function LanguageSwitcher({
 
   if (variant === "full") {
     return (
-      <div className={`flex flex-col gap-1.5 ${className}`}>
-        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">
+      <div className={`flex flex-col gap-2 ${className}`}>
+        <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
           <Globe className="w-3.5 h-3.5 text-sky-500" />
-          <span>Tilni tanlang / Выберите язык</span>
+          <span>Til / Язык / Language</span>
         </div>
         <div className="grid grid-cols-3 gap-2">
           {languages.map((lang) => {
@@ -31,10 +32,10 @@ export default function LanguageSwitcher({
                 key={lang.code}
                 type="button"
                 onClick={() => setLanguage(lang.code)}
-                className={`flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
+                className={`flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-semibold transition-all cursor-pointer border ${
                   isActive
-                    ? "bg-sky-600 dark:bg-sky-500 text-white dark:text-slate-950 border-sky-600 dark:border-sky-500 shadow-sm shadow-sky-600/30"
-                    : "bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:border-sky-400 dark:hover:border-sky-500"
+                    ? "bg-sky-50 dark:bg-sky-950/40 text-sky-600 dark:text-sky-400 border-sky-300 dark:border-sky-800 shadow-xs"
+                    : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200/80 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700"
                 }`}
               >
                 <span>{lang.flag}</span>
@@ -47,16 +48,13 @@ export default function LanguageSwitcher({
     );
   }
 
-  // Segmented control for Header
+  // Refined Segmented Control for Header
   return (
     <div
-      className={`inline-flex items-center p-0.5 rounded-xl bg-slate-100/90 dark:bg-slate-900/90 border border-slate-200/90 dark:border-slate-800 shadow-inner ${className}`}
+      className={`inline-flex items-center p-1 rounded-xl bg-slate-100/90 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/70 shadow-xs ${className}`}
       role="group"
-      aria-label="Language selection"
+      aria-label="Language selector"
     >
-      <div className="pl-1.5 pr-0.5 text-slate-400 dark:text-slate-500 hidden sm:flex items-center">
-        <Globe className="w-3.5 h-3.5" />
-      </div>
       {languages.map((lang) => {
         const isActive = language === lang.code;
         return (
@@ -64,13 +62,20 @@ export default function LanguageSwitcher({
             key={lang.code}
             type="button"
             onClick={() => setLanguage(lang.code)}
-            className={`relative px-2 py-1 sm:px-2.5 sm:py-1 rounded-lg text-[11px] sm:text-xs font-bold transition-all duration-200 cursor-pointer ${
+            className={`relative min-w-[32px] sm:min-w-[36px] h-7 sm:h-7.5 px-2 flex items-center justify-center rounded-lg text-xs font-semibold transition-colors duration-200 cursor-pointer select-none ${
               isActive
-                ? "bg-white dark:bg-sky-500 text-sky-600 dark:text-slate-950 shadow-sm font-black scale-[1.02]"
-                : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                ? "text-sky-600 dark:text-sky-300"
+                : "text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200"
             }`}
           >
-            <span>{lang.shortLabel}</span>
+            {isActive && (
+              <motion.span
+                layoutId="activeLangPill"
+                transition={{ type: "spring", stiffness: 450, damping: 35 }}
+                className="absolute inset-0 rounded-lg bg-white dark:bg-slate-700/90 shadow-xs border border-slate-200/60 dark:border-slate-600/50"
+              />
+            )}
+            <span className="relative z-10">{lang.shortLabel}</span>
           </button>
         );
       })}
