@@ -72,23 +72,24 @@ body {
   color: #ffffff;
 }
 
-/* Infinite Marquee Lenta Animation */
-@keyframes marquee-lenta {
-  0% {
-    transform: translateX(0%);
+/* Infinite Marquee Lenta Animation (100% Seamless Infinite Loop) */
+@keyframes marquee-seamless {
+  from {
+    transform: translate3d(0, 0, 0);
   }
-  100% {
-    transform: translateX(-50%);
+  to {
+    transform: translate3d(calc(-100% - 0.75rem), 0, 0);
   }
 }
 
-.animate-marquee-lenta {
+.animate-marquee-seamless {
   display: flex;
-  width: max-content;
-  animation: marquee-lenta 30s linear infinite;
+  flex-shrink: 0;
+  gap: 0.75rem;
+  animation: marquee-seamless 35s linear infinite;
   will-change: transform;
 }
 
-.animate-marquee-lenta:hover {
+.group-marquee:hover .animate-marquee-seamless {
   animation-play-state: paused;
 }
