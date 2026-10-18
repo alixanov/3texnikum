@@ -20,13 +20,9 @@ import GalleryLightbox from "../ui/GalleryLightbox";
 function CategoryRibbon({
   categories,
   categoryIcons,
-  activeCategory,
-  onSelectCategory,
 }: {
   categories: string[];
   categoryIcons: Record<string, React.ReactNode>;
-  activeCategory: string;
-  onSelectCategory: (cat: string) => void;
 }) {
   const x = useMotionValue(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -36,12 +32,12 @@ function CategoryRibbon({
   const isHoveredRef = useRef<boolean>(false);
   const startXRef = useRef<number>(0);
   const pointerStartXRef = useRef<number>(0);
-  const hasDraggedRef = useRef<boolean>(false);
 
-  // Calculate pixel width of a single 7-category block (including 12px gap)
+  // Measure single track width
   useEffect(() => {
     const measure = () => {
       if (singleSetRef.current) {
+        // Gap is 12px (gap-3)
         singleWidthRef.current = singleSetRef.current.offsetWidth + 12;
       }
     };
@@ -56,22 +52,21 @@ function CategoryRibbon({
     };
   }, [categories]);
 
-  // Silky 60/120fps auto-scroll with zero-stutter mathematical wrapping
+  // Smooth continuous auto-scroll with zero-stutter mathematical wrapping
   useAnimationFrame((time, delta) => {
     const singleWidth = singleWidthRef.current;
     if (!singleWidth || isDraggingRef.current) return;
 
-    // 30 px/s normal speed. If mouse hovers, slows to 14 px/s for easy clicking (never freezes)
-    const speed = isHoveredRef.current ? 14 : 30;
+    // Smooth speed: 30 px/s (16 px/s if mouse hovers)
+    const speed = isHoveredRef.current ? 16 : 30;
     const moveBy = (speed * delta) / 1000;
     const nextX = wrap(-singleWidth, 0, x.get() - moveBy);
     x.set(nextX);
   });
 
-  // Interactive mouse/touch swipe handlers
+  // Touch and mouse drag swipe
   const handlePointerDown = (e: React.PointerEvent) => {
     isDraggingRef.current = false;
-    hasDraggedRef.current = false;
     pointerStartXRef.current = e.clientX;
     startXRef.current = x.get();
   };
@@ -82,9 +77,8 @@ function CategoryRibbon({
     if (!singleWidth || pointerStartXRef.current === 0) return;
 
     const diff = e.clientX - pointerStartXRef.current;
-    if (Math.abs(diff) > 8) {
+    if (Math.abs(diff) > 5) {
       isDraggingRef.current = true;
-      hasDraggedRef.current = true;
       const targetX = startXRef.current + diff;
       x.set(wrap(-singleWidth, 0, targetX));
     }
@@ -93,17 +87,9 @@ function CategoryRibbon({
   const handlePointerUp = () => {
     isDraggingRef.current = false;
     pointerStartXRef.current = 0;
-    setTimeout(() => {
-      hasDraggedRef.current = false;
-    }, 120);
   };
 
-  const handleCategoryClick = (cat: string) => {
-    if (hasDraggedRef.current) return;
-    onSelectCategory(cat);
-  };
-
-  // 5 identical sets guarantee smooth coverage up to 5000px wide monitors
+  // 5 identical sets guarantee smooth coverage across any screen resolution
   const sets = [0, 1, 2, 3, 4];
 
   return (
@@ -134,33 +120,17 @@ function CategoryRibbon({
             className="flex items-center gap-3 shrink-0"
             aria-hidden={setIdx > 0}
           >
-            {categories.map((cat, i) => {
-              const isActive = activeCategory === cat;
-              return (
-                <button
-                  key={`${setIdx}-${cat}-${i}`}
-                  type="button"
-                  tabIndex={setIdx === 0 ? 0 : -1}
-                  onClick={() => handleCategoryClick(cat)}
-                  className={`group shrink-0 inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
-                    isActive
-                      ? "bg-gradient-to-r from-sky-600 to-blue-600 text-white shadow-lg shadow-sky-600/30 scale-105 border border-sky-400/40"
-                      : "bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:border-sky-400 dark:hover:border-sky-500 hover:text-sky-600 dark:hover:text-sky-400 hover:shadow-md hover:scale-[1.02]"
-                  }`}
-                >
-                  <span
-                    className={`${
-                      isActive
-                        ? "text-sky-200"
-                        : "text-sky-600 dark:text-sky-400 group-hover:scale-110 transition-transform"
-                    }`}
-                  >
-                    {categoryIcons[cat] || <Sparkles className="w-3.5 h-3.5" />}
-                  </span>
-                  <span>{cat}</span>
-                </button>
-              );
-            })}
+            {categories.map((cat, i) => (
+              <div
+                key={`${setIdx}-${cat}-${i}`}
+                className="shrink-0 inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-semibold bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200/90 dark:border-slate-800 shadow-sm"
+              >
+                <span className="text-sky-600 dark:text-sky-400">
+                  {categoryIcons[cat] || <Sparkles className="w-3.5 h-3.5" />}
+                </span>
+                <span>{cat}</span>
+              </div>
+            ))}
           </div>
         ))}
       </motion.div>
@@ -169,11 +139,9 @@ function CategoryRibbon({
 }
 
 export default function GallerySection() {
-  const [activeCategory, setActiveCategory] = useState<string>("Barchasi");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const categories = [
-    "Barchasi",
     "O‘quv jarayoni",
     "Kompyuter sinflari",
     "Avtomobil ustaxonasi",
@@ -183,7 +151,6 @@ export default function GallerySection() {
   ];
 
   const categoryIcons: Record<string, React.ReactNode> = {
-    "Barchasi": <Sparkles className="w-3.5 h-3.5" />,
     "O‘quv jarayoni": <BookOpen className="w-3.5 h-3.5" />,
     "Kompyuter sinflari": <Monitor className="w-3.5 h-3.5" />,
     "Avtomobil ustaxonasi": <Wrench className="w-3.5 h-3.5" />,
@@ -192,17 +159,7 @@ export default function GallerySection() {
     "Talabalar hayoti": <Users className="w-3.5 h-3.5" />,
   };
 
-
-  const filteredItems =
-    activeCategory === "Barchasi"
-      ? siteConfig.gallery
-      : siteConfig.gallery.filter((item) => item.category === activeCategory);
-
-  const handleOpenLightbox = (itemIndex: number) => {
-    const targetItem = filteredItems[itemIndex];
-    const globalIdx = siteConfig.gallery.findIndex((i) => i.id === targetItem.id);
-    setLightboxIndex(globalIdx !== -1 ? globalIdx : 0);
-  };
+  const items = siteConfig.gallery;
 
   return (
     <section id="galereya" className="py-16 sm:py-24 md:py-28 bg-slate-50 dark:bg-slate-950 transition-colors duration-300 relative overflow-hidden">
@@ -213,19 +170,16 @@ export default function GallerySection() {
           subtitle="Nazariy darslar, amaliy mashg‘ulotlar, zamonaviy ustaxonalar va faol talabalik damlari"
         />
 
-        {/* Infinite Auto-Swiping & Interactive Draggable Category Ribbon */}
+        {/* Continuous Running Marquee Ribbon */}
         <CategoryRibbon
           categories={categories}
           categoryIcons={categoryIcons}
-          activeCategory={activeCategory}
-          onSelectCategory={setActiveCategory}
         />
 
         {/* Responsive Gallery Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {filteredItems.map((item, index) => {
-            const isAll = activeCategory === "Barchasi";
-            const isWide = isAll && (index === 0 || index === 3);
+          {items.map((item, index) => {
+            const isWide = index === 0 || index === 3;
             return (
               <motion.div
                 key={item.id}
@@ -233,13 +187,11 @@ export default function GallerySection() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4 }}
-                onClick={() => handleOpenLightbox(index)}
+                onClick={() => setLightboxIndex(index)}
                 className={`group relative rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-2xl transition-all duration-300 bg-slate-900 ${
                   isWide
                     ? "aspect-[16/10] sm:aspect-[16/9] sm:col-span-2 lg:col-span-2"
-                    : isAll
-                    ? "aspect-[4/3]"
-                    : "aspect-[16/10]"
+                    : "aspect-[4/3]"
                 }`}
               >
                 <Image
