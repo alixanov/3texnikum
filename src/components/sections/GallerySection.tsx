@@ -4,7 +4,6 @@ import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import {
   Maximize2,
-  Info,
   Sparkles,
   BookOpen,
   Monitor,
@@ -35,11 +34,9 @@ function CategoryRibbon({
   const singleWidthRef = useRef<number>(0);
   const isDraggingRef = useRef<boolean>(false);
   const isHoveredRef = useRef<boolean>(false);
-  const dragStartRef = useRef<{ clientX: number; startX: number; moved: boolean }>({
-    clientX: 0,
-    startX: 0,
-    moved: false,
-  });
+  const startXRef = useRef<number>(0);
+  const pointerStartXRef = useRef<number>(0);
+  const hasDraggedRef = useRef<boolean>(false);
 
   // Calculate pixel width of a single 7-category block (including 12px gap)
   useEffect(() => {
@@ -64,8 +61,8 @@ function CategoryRibbon({
     const singleWidth = singleWidthRef.current;
     if (!singleWidth || isDraggingRef.current) return;
 
-    // 32 px/s normal speed. If mouse hovers, slows to 14 px/s for easy clicking (never freezes)
-    const speed = isHoveredRef.current ? 14 : 32;
+    // 30 px/s normal speed. If mouse hovers, slows to 14 px/s for easy clicking (never freezes)
+    const speed = isHoveredRef.current ? 14 : 30;
     const moveBy = (speed * delta) / 1000;
     const nextX = wrap(-singleWidth, 0, x.get() - moveBy);
     x.set(nextX);
@@ -73,41 +70,36 @@ function CategoryRibbon({
 
   // Interactive mouse/touch swipe handlers
   const handlePointerDown = (e: React.PointerEvent) => {
-    isDraggingRef.current = true;
-    dragStartRef.current = {
-      clientX: e.clientX,
-      startX: x.get(),
-      moved: false,
-    };
-    (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
+    isDraggingRef.current = false;
+    hasDraggedRef.current = false;
+    pointerStartXRef.current = e.clientX;
+    startXRef.current = x.get();
   };
 
   const handlePointerMove = (e: React.PointerEvent) => {
-    if (!isDraggingRef.current) return;
+    if (e.buttons === 0 && e.pointerType === "mouse") return;
     const singleWidth = singleWidthRef.current;
-    if (!singleWidth) return;
+    if (!singleWidth || pointerStartXRef.current === 0) return;
 
-    const diff = e.clientX - dragStartRef.current.clientX;
-    if (Math.abs(diff) > 4) {
-      dragStartRef.current.moved = true;
+    const diff = e.clientX - pointerStartXRef.current;
+    if (Math.abs(diff) > 8) {
+      isDraggingRef.current = true;
+      hasDraggedRef.current = true;
+      const targetX = startXRef.current + diff;
+      x.set(wrap(-singleWidth, 0, targetX));
     }
-    const targetX = dragStartRef.current.startX + diff;
-    x.set(wrap(-singleWidth, 0, targetX));
   };
 
-  const handlePointerUp = (e: React.PointerEvent) => {
-    if (!isDraggingRef.current) return;
+  const handlePointerUp = () => {
     isDraggingRef.current = false;
-    try {
-      (e.currentTarget as HTMLElement).releasePointerCapture?.(e.pointerId);
-    } catch {}
+    pointerStartXRef.current = 0;
     setTimeout(() => {
-      dragStartRef.current.moved = false;
-    }, 80);
+      hasDraggedRef.current = false;
+    }, 120);
   };
 
   const handleCategoryClick = (cat: string) => {
-    if (dragStartRef.current.moved) return;
+    if (hasDraggedRef.current) return;
     onSelectCategory(cat);
   };
 
@@ -287,13 +279,6 @@ export default function GallerySection() {
           })}
         </div>
 
-        {/* Temporary material note */}
-        <div className="mt-8 flex items-center justify-center gap-2 text-xs text-slate-500 dark:text-slate-400 max-w-xl mx-auto text-center px-2">
-          <Info className="w-4 h-4 text-sky-600 dark:text-sky-400 shrink-0" />
-          <span>
-            * Galereyadagi tasvirlar ta’lim yo‘nalishlari va o‘quv muhitini ko‘rgazmali namoyish qilish uchun namunaviy material sifatida joylashtirilgan.
-          </span>
-        </div>
       </div>
 
       {/* Lightbox Modal */}
