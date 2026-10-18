@@ -172,7 +172,7 @@ export default function Footer() {
 
         {/* Bottom copyright row */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p>© {t.common.siteName}. {t.footer.rights}</p>
+          <p>© {currentYear} {t.common.siteName}. {t.footer.rights}</p>
           <div className="flex items-center gap-4">
             <span>Professional Full-Stack Developer arxitekturasi</span>
             <a

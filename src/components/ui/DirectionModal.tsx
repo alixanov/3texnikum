@@ -3,11 +3,11 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { X, CheckCircle, Briefcase, GraduationCap, ArrowRight } from "lucide-react";
-import { DirectionItem } from "@/data/siteConfig";
 import { useLanguage } from "@/context/LanguageContext";
+import { ActiveDirection } from "@/data/translations";
 
 interface DirectionModalProps {
-  direction: (DirectionItem & { skills: string[]; careers: string[]; curriculum: string[] }) | null;
+  direction: ActiveDirection | null;
   onClose: () => void;
 }
 

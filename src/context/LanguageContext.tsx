@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useSyncExternalStore, useCallback } from "react";
 import { Language, Translations, translations } from "@/data/translations";
 
 interface LanguageContextType {
@@ -9,42 +9,50 @@ interface LanguageContextType {
   t: Translations;
 }
 
+const STORAGE_KEY = "3tex_lang";
+const CHANGE_EVENT = "3tex_language_change";
+
+function subscribe(callback: () => void) {
+  window.addEventListener("storage", callback);
+  window.addEventListener(CHANGE_EVENT, callback);
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener(CHANGE_EVENT, callback);
+  };
+}
+
+function getSnapshot(): Language {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY) as Language | null;
+    if (saved === "uz" || saved === "ru" || saved === "en") {
+      return saved;
+    }
+  } catch {}
+  return "uz";
+}
+
+function getServerSnapshot(): Language {
+  return "uz";
+}
+
 const LanguageContext = createContext<LanguageContextType>({
   language: "uz",
   setLanguage: () => {},
   t: translations.uz,
 });
 
-const STORAGE_KEY = "3tex_lang";
-
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language>("uz");
-  const [mounted, setMounted] = useState(false);
+  const language = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
-  useEffect(() => {
-    setMounted(true);
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY) as Language | null;
-      if (saved && (saved === "uz" || saved === "ru" || saved === "en")) {
-        setLanguageState(saved);
-        document.documentElement.lang = saved;
-      } else {
-        document.documentElement.lang = "uz";
-      }
-    } catch {
-      // localStorage unavailable or restricted
-    }
-  }, []);
-
-  const setLanguage = (lang: Language) => {
-    setLanguageState(lang);
+  const setLanguage = useCallback((lang: Language) => {
     try {
       localStorage.setItem(STORAGE_KEY, lang);
+      if (typeof document !== "undefined") {
+        document.documentElement.lang = lang;
+      }
+      window.dispatchEvent(new Event(CHANGE_EVENT));
     } catch {}
-    if (typeof document !== "undefined") {
-      document.documentElement.lang = lang;
-    }
-  };
+  }, []);
 
   const t = translations[language] || translations.uz;
 

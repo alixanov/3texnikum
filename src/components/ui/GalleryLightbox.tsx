@@ -3,11 +3,11 @@
 import React, { useEffect, useCallback } from "react";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
-import { GalleryItem } from "@/data/siteConfig";
 import { useLanguage } from "@/context/LanguageContext";
+import { ActiveGalleryItem } from "@/data/translations";
 
 interface GalleryLightboxProps {
-  items: GalleryItem[];
+  items: ActiveGalleryItem[];
   currentIndex: number | null;
   onClose: () => void;
   onNavigate: (index: number) => void;

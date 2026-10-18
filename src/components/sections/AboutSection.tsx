@@ -5,7 +5,6 @@ import Image from "next/image";
 import {
   CheckCircle2,
   BookOpen,
-  Sparkles,
   Award,
   ArrowRight,
   GraduationCap,

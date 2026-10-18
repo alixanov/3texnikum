@@ -17,6 +17,7 @@ import { siteConfig } from "@/data/siteConfig";
 import SectionHeading from "../ui/SectionHeading";
 import GalleryLightbox from "../ui/GalleryLightbox";
 import { useLanguage } from "@/context/LanguageContext";
+import { ActiveGalleryItem } from "@/data/translations";
 
 function CategoryRibbon({
   categories,
@@ -157,7 +158,7 @@ export default function GallerySection() {
     categoryIcons[cat] = iconList[idx] || <Sparkles className="w-3.5 h-3.5" />;
   });
 
-  const items = t.gallery.items.map((item, idx) => {
+  const items: ActiveGalleryItem[] = t.gallery.items.map((item, idx) => {
     const base = siteConfig.gallery.find((g) => g.id === item.id) || siteConfig.gallery[idx];
     return {
       id: item.id,
@@ -242,7 +243,7 @@ export default function GallerySection() {
 
       {/* Lightbox Modal */}
       <GalleryLightbox
-        items={items as any}
+        items={items}
         currentIndex={lightboxIndex}
         onClose={() => setLightboxIndex(null)}
         onNavigate={(idx) => setLightboxIndex(idx)}

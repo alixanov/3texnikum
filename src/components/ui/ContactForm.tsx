@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Send, CheckCircle2 } from "lucide-react";
+import { Send, CheckCircle2, AlertCircle } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function ContactForm() {
@@ -15,15 +15,40 @@ export default function ContactForm() {
 
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
 
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || t.contact.form.errorMessage);
+      }
+
       setSubmitted(true);
-    }, 600);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : t.contact.form.errorMessage;
+      setError(message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value;
+    // Allow digits, spaces, plus, dashes, and parens
+    const cleaned = raw.replace(/[^\d+() -]/g, "");
+    setFormData((prev) => ({ ...prev, phone: cleaned }));
   };
 
   if (submitted) {
@@ -42,6 +67,7 @@ export default function ContactForm() {
           type="button"
           onClick={() => {
             setSubmitted(false);
+            setError(null);
             setFormData({ fullName: "", phone: "", direction: "dasturlash", message: "" });
           }}
           className="mt-4 px-6 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold rounded-xl transition-colors cursor-pointer"
@@ -65,6 +91,13 @@ export default function ContactForm() {
           {t.contact.form.subtitle}
         </p>
       </div>
+
+      {error && (
+        <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 text-xs flex items-center gap-2.5">
+          <AlertCircle className="w-4 h-4 shrink-0" />
+          <span>{error}</span>
+        </div>
+      )}
 
       <div>
         <label
@@ -97,7 +130,7 @@ export default function ContactForm() {
           required
           placeholder={t.contact.form.phonePlaceholder}
           value={formData.phone}
-          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+          onChange={handlePhoneChange}
           className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/80 focus:border-sky-500 dark:focus:border-sky-400 focus:ring-2 focus:ring-sky-500/20 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-sm outline-none transition-all"
         />
       </div>

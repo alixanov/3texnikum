@@ -8,15 +8,13 @@ import { siteConfig } from "@/data/siteConfig";
 import SectionHeading from "../ui/SectionHeading";
 import DirectionModal from "../ui/DirectionModal";
 import { useLanguage } from "@/context/LanguageContext";
-import { DirectionItemTranslation } from "@/data/translations";
+import { ActiveDirection } from "@/data/translations";
 
 export default function DirectionsSection() {
   const { t } = useLanguage();
-  const [selectedDirection, setSelectedDirection] = useState<
-    (DirectionItemTranslation & { image: string }) | null
-  >(null);
+  const [selectedDirection, setSelectedDirection] = useState<ActiveDirection | null>(null);
 
-  const directions = t.directions.items.map((item) => {
+  const directions: ActiveDirection[] = t.directions.items.map((item) => {
     const base = siteConfig.directions.find((d) => d.id === item.id);
     return {
       ...item,
@@ -91,7 +89,7 @@ export default function DirectionsSection() {
 
                     <button
                       type="button"
-                      onClick={() => setSelectedDirection(item as any)}
+                      onClick={() => setSelectedDirection(item)}
                       className="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold text-sky-600 dark:text-sky-400 group-hover:text-white bg-sky-50 dark:bg-sky-950/60 group-hover:bg-sky-600 rounded-xl transition-all duration-200 shadow-sm border border-sky-100 dark:border-sky-900/40 cursor-pointer"
                     >
                       <span>{t.common.moreInfo}</span>

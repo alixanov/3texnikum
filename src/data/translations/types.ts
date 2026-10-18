@@ -30,6 +30,15 @@ export interface GalleryItemTranslation {
   category: string;
 }
 
+export type ActiveDirection = DirectionItemTranslation & {
+  image: string;
+};
+
+export type ActiveGalleryItem = GalleryItemTranslation & {
+  image: string;
+  aspect?: "square" | "wide" | "tall";
+};
+
 export interface Translations {
   common: {
     siteName: string;

@@ -7,23 +7,15 @@ import { siteConfig } from "@/data/siteConfig";
 import SectionHeading from "../ui/SectionHeading";
 import { useLanguage } from "@/context/LanguageContext";
 
+const iconMap = {
+  GraduationCap,
+  Cpu,
+  TrendingUp,
+  Award,
+} as const;
+
 export default function FeaturesSection() {
   const { t } = useLanguage();
-
-  const getIcon = (iconName: string) => {
-    switch (iconName) {
-      case "GraduationCap":
-        return <GraduationCap className="w-7 h-7 text-sky-600 dark:text-sky-400" />;
-      case "Cpu":
-        return <Cpu className="w-7 h-7 text-sky-600 dark:text-sky-400" />;
-      case "TrendingUp":
-        return <TrendingUp className="w-7 h-7 text-sky-600 dark:text-sky-400" />;
-      case "Award":
-        return <Award className="w-7 h-7 text-sky-600 dark:text-sky-400" />;
-      default:
-        return <Award className="w-7 h-7 text-sky-600 dark:text-sky-400" />;
-    }
-  };
 
   return (
     <section id="imkoniyatlar" className="py-16 sm:py-24 md:py-28 bg-white dark:bg-slate-900 transition-colors duration-300 relative">
@@ -37,7 +29,8 @@ export default function FeaturesSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {t.features.items.map((feature, index) => {
             const base = siteConfig.features.find((f) => f.id === feature.id);
-            const iconName = base?.iconName || "Award";
+            const iconName = (base?.iconName || "Award") as keyof typeof iconMap;
+            const IconComponent = iconMap[iconName] || Award;
             return (
               <motion.div
                 key={feature.id}
@@ -49,9 +42,7 @@ export default function FeaturesSection() {
               >
                 <div>
                   <div className="w-14 h-14 rounded-2xl bg-white dark:bg-slate-800 text-sky-600 dark:text-sky-400 shadow-md shadow-slate-200/50 dark:shadow-slate-950/50 flex items-center justify-center mb-6 border border-slate-100 dark:border-slate-700 group-hover:bg-sky-600 group-hover:text-white transition-colors duration-300">
-                    {React.cloneElement(getIcon(iconName), {
-                      className: "w-7 h-7 group-hover:text-white transition-colors duration-300",
-                    })}
+                    <IconComponent className="w-7 h-7 text-sky-600 dark:text-sky-400 group-hover:text-white transition-colors duration-300" />
                   </div>
 
                   <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">

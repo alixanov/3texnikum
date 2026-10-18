@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect } from "react";
-import Link from "next/link";
 import { X, Phone, Mail, MapPin, Send } from "lucide-react";
 import { siteConfig } from "@/data/siteConfig";
 import ThemeToggle from "@/components/theme/ThemeToggle";
@@ -149,7 +148,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               className="mt-2 flex items-center justify-center gap-2 py-2 px-3 bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 rounded-lg text-xs font-semibold hover:bg-sky-100 dark:hover:bg-sky-900 transition-colors border border-sky-100 dark:border-sky-800"
             >
               <Send className="w-3.5 h-3.5" />
-              <span>Telegram orqali bog‘lanish</span>
+              <span>{t.admission.telegramCta}</span>
             </a>
           )}
         </div>

@@ -84,6 +84,10 @@ export default function RootLayout({
           document.documentElement.classList.remove('dark');
           document.documentElement.setAttribute('data-theme', 'light');
         }
+        var savedLang = localStorage.getItem('3tex_lang');
+        if (savedLang === 'ru' || savedLang === 'en' || savedLang === 'uz') {
+          document.documentElement.lang = savedLang;
+        }
       } catch (e) {}
     })();
   `;
