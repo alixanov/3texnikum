@@ -13,7 +13,7 @@ interface MobileMenuProps {
 }
 
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const navLinks = [
     { label: t.nav.home, href: "#hero" },
@@ -81,7 +81,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           {/* Theme Switcher Row */}
           <div className="py-3 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
-              Ko‘rinish / Тема:
+              {language === "uz" ? "Rejim" : language === "ru" ? "Тема" : "Theme"}:
             </span>
             <ThemeToggle showText />
           </div>

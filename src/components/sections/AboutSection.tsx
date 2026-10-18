@@ -162,7 +162,7 @@ export default function AboutSection() {
               </a>
 
               <a
-                href="#aloqa"
+                href="#qabul"
                 className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-750 font-semibold text-sm transition-all duration-200"
               >
                 <span>{t.common.admissionBtn}</span>
