@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import {
   Maximize2,
@@ -13,10 +13,168 @@ import {
   Scissors,
   Users,
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useAnimationFrame, wrap } from "framer-motion";
 import { siteConfig } from "@/data/siteConfig";
 import SectionHeading from "../ui/SectionHeading";
 import GalleryLightbox from "../ui/GalleryLightbox";
+
+function CategoryRibbon({
+  categories,
+  categoryIcons,
+  activeCategory,
+  onSelectCategory,
+}: {
+  categories: string[];
+  categoryIcons: Record<string, React.ReactNode>;
+  activeCategory: string;
+  onSelectCategory: (cat: string) => void;
+}) {
+  const x = useMotionValue(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const singleSetRef = useRef<HTMLDivElement>(null);
+  const singleWidthRef = useRef<number>(0);
+  const isDraggingRef = useRef<boolean>(false);
+  const isHoveredRef = useRef<boolean>(false);
+  const dragStartRef = useRef<{ clientX: number; startX: number; moved: boolean }>({
+    clientX: 0,
+    startX: 0,
+    moved: false,
+  });
+
+  // Calculate pixel width of a single 7-category block (including 12px gap)
+  useEffect(() => {
+    const measure = () => {
+      if (singleSetRef.current) {
+        singleWidthRef.current = singleSetRef.current.offsetWidth + 12;
+      }
+    };
+    measure();
+    const t1 = setTimeout(measure, 150);
+    const t2 = setTimeout(measure, 600);
+    window.addEventListener("resize", measure);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      window.removeEventListener("resize", measure);
+    };
+  }, [categories]);
+
+  // Silky 60/120fps auto-scroll with zero-stutter mathematical wrapping
+  useAnimationFrame((time, delta) => {
+    const singleWidth = singleWidthRef.current;
+    if (!singleWidth || isDraggingRef.current) return;
+
+    // 32 px/s normal speed. If mouse hovers, slows to 14 px/s for easy clicking (never freezes)
+    const speed = isHoveredRef.current ? 14 : 32;
+    const moveBy = (speed * delta) / 1000;
+    const nextX = wrap(-singleWidth, 0, x.get() - moveBy);
+    x.set(nextX);
+  });
+
+  // Interactive mouse/touch swipe handlers
+  const handlePointerDown = (e: React.PointerEvent) => {
+    isDraggingRef.current = true;
+    dragStartRef.current = {
+      clientX: e.clientX,
+      startX: x.get(),
+      moved: false,
+    };
+    (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
+  };
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (!isDraggingRef.current) return;
+    const singleWidth = singleWidthRef.current;
+    if (!singleWidth) return;
+
+    const diff = e.clientX - dragStartRef.current.clientX;
+    if (Math.abs(diff) > 4) {
+      dragStartRef.current.moved = true;
+    }
+    const targetX = dragStartRef.current.startX + diff;
+    x.set(wrap(-singleWidth, 0, targetX));
+  };
+
+  const handlePointerUp = (e: React.PointerEvent) => {
+    if (!isDraggingRef.current) return;
+    isDraggingRef.current = false;
+    try {
+      (e.currentTarget as HTMLElement).releasePointerCapture?.(e.pointerId);
+    } catch {}
+    setTimeout(() => {
+      dragStartRef.current.moved = false;
+    }, 80);
+  };
+
+  const handleCategoryClick = (cat: string) => {
+    if (dragStartRef.current.moved) return;
+    onSelectCategory(cat);
+  };
+
+  // 5 identical sets guarantee smooth coverage up to 5000px wide monitors
+  const sets = [0, 1, 2, 3, 4];
+
+  return (
+    <div
+      ref={containerRef}
+      onMouseEnter={() => {
+        isHoveredRef.current = true;
+      }}
+      onMouseLeave={() => {
+        isHoveredRef.current = false;
+      }}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
+      className="relative w-full overflow-hidden mb-10 sm:mb-14 py-2 select-none cursor-grab active:cursor-grabbing touch-pan-y"
+    >
+      {/* Edge gradient fade masks */}
+      <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-slate-50 dark:from-slate-950 via-slate-50/90 dark:via-slate-950/90 to-transparent z-20" />
+      <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-slate-50 dark:from-slate-950 via-slate-50/90 dark:via-slate-950/90 to-transparent z-20" />
+
+      {/* Moving Track */}
+      <motion.div style={{ x }} className="flex w-max items-center gap-3">
+        {sets.map((setIdx) => (
+          <div
+            key={`set-${setIdx}`}
+            ref={setIdx === 0 ? singleSetRef : undefined}
+            className="flex items-center gap-3 shrink-0"
+            aria-hidden={setIdx > 0}
+          >
+            {categories.map((cat, i) => {
+              const isActive = activeCategory === cat;
+              return (
+                <button
+                  key={`${setIdx}-${cat}-${i}`}
+                  type="button"
+                  tabIndex={setIdx === 0 ? 0 : -1}
+                  onClick={() => handleCategoryClick(cat)}
+                  className={`group shrink-0 inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                    isActive
+                      ? "bg-gradient-to-r from-sky-600 to-blue-600 text-white shadow-lg shadow-sky-600/30 scale-105 border border-sky-400/40"
+                      : "bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:border-sky-400 dark:hover:border-sky-500 hover:text-sky-600 dark:hover:text-sky-400 hover:shadow-md hover:scale-[1.02]"
+                  }`}
+                >
+                  <span
+                    className={`${
+                      isActive
+                        ? "text-sky-200"
+                        : "text-sky-600 dark:text-sky-400 group-hover:scale-110 transition-transform"
+                    }`}
+                  >
+                    {categoryIcons[cat] || <Sparkles className="w-3.5 h-3.5" />}
+                  </span>
+                  <span>{cat}</span>
+                </button>
+              );
+            })}
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
 
 export default function GallerySection() {
   const [activeCategory, setActiveCategory] = useState<string>("Barchasi");
@@ -42,8 +200,6 @@ export default function GallerySection() {
     "Talabalar hayoti": <Users className="w-3.5 h-3.5" />,
   };
 
-  // Repeat categories 3 times per track to ensure wide screen coverage
-  const trackItems = [...categories, ...categories, ...categories];
 
   const filteredItems =
     activeCategory === "Barchasi"
@@ -65,76 +221,13 @@ export default function GallerySection() {
           subtitle="Nazariy darslar, amaliy mashg‘ulotlar, zamonaviy ustaxonalar va faol talabalik damlari"
         />
 
-        {/* Continuous Running Marquee Ribbon (100% Seamless Infinite Loop) */}
-        <div className="group-marquee relative w-full overflow-hidden mb-10 sm:mb-14 py-2 select-none">
-          {/* Edge gradient fade masks for smooth tape effect */}
-          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-slate-50 dark:from-slate-950 via-slate-50/90 dark:via-slate-950/90 to-transparent z-20" />
-          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-slate-50 dark:from-slate-950 via-slate-50/90 dark:via-slate-950/90 to-transparent z-20" />
-
-          {/* Continuous Twin Tracks: Track 1 & Track 2 (Zero-gap, mathematically seamless infinite loop) */}
-          <div className="flex w-max gap-3">
-            {/* Track 1 */}
-            <div className="animate-marquee-seamless flex items-center">
-              {trackItems.map((cat, i) => {
-                const isActive = activeCategory === cat;
-                return (
-                  <button
-                    key={`t1-${cat}-${i}`}
-                    type="button"
-                    onClick={() => setActiveCategory(cat)}
-                    className={`group shrink-0 inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
-                      isActive
-                        ? "bg-gradient-to-r from-sky-600 to-blue-600 text-white shadow-lg shadow-sky-600/30 scale-105 border border-sky-400/40"
-                        : "bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:border-sky-400 dark:hover:border-sky-500 hover:text-sky-600 dark:hover:text-sky-400 hover:shadow-md hover:scale-[1.02]"
-                    }`}
-                  >
-                    <span
-                      className={`${
-                        isActive
-                          ? "text-sky-200"
-                          : "text-sky-600 dark:text-sky-400 group-hover:scale-110 transition-transform"
-                      }`}
-                    >
-                      {categoryIcons[cat] || <Sparkles className="w-3.5 h-3.5" />}
-                    </span>
-                    <span>{cat}</span>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Track 2 - Exact duplicate following track 1 for true infinity */}
-            <div className="animate-marquee-seamless flex items-center" aria-hidden="true">
-              {trackItems.map((cat, i) => {
-                const isActive = activeCategory === cat;
-                return (
-                  <button
-                    key={`t2-${cat}-${i}`}
-                    type="button"
-                    tabIndex={-1}
-                    onClick={() => setActiveCategory(cat)}
-                    className={`group shrink-0 inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
-                      isActive
-                        ? "bg-gradient-to-r from-sky-600 to-blue-600 text-white shadow-lg shadow-sky-600/30 scale-105 border border-sky-400/40"
-                        : "bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:border-sky-400 dark:hover:border-sky-500 hover:text-sky-600 dark:hover:text-sky-400 hover:shadow-md hover:scale-[1.02]"
-                    }`}
-                  >
-                    <span
-                      className={`${
-                        isActive
-                          ? "text-sky-200"
-                          : "text-sky-600 dark:text-sky-400 group-hover:scale-110 transition-transform"
-                      }`}
-                    >
-                      {categoryIcons[cat] || <Sparkles className="w-3.5 h-3.5" />}
-                    </span>
-                    <span>{cat}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </div>
+        {/* Infinite Auto-Swiping & Interactive Draggable Category Ribbon */}
+        <CategoryRibbon
+          categories={categories}
+          categoryIcons={categoryIcons}
+          activeCategory={activeCategory}
+          onSelectCategory={setActiveCategory}
+        />
 
         {/* Responsive Gallery Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
