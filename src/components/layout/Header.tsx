@@ -45,17 +45,18 @@ export default function Header() {
             {/* Logo / Brand Name */}
             <a
               href="#hero"
-              className="group flex items-center gap-2.5 sm:gap-3 transition-transform focus:outline-none min-w-0 max-w-[55%] sm:max-w-none"
+              className="group flex items-center gap-2 sm:gap-3 transition-transform focus:outline-none min-w-0 pr-2"
             >
               <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-sky-600 dark:bg-sky-500 text-white dark:text-slate-950 flex items-center justify-center shrink-0 shadow-md shadow-sky-600/25 dark:shadow-sky-500/30 transition-all group-hover:scale-105">
                 <GraduationCap className="w-5 h-5 transition-transform group-hover:scale-110" />
               </div>
               <div className="flex flex-col min-w-0">
-                <span className="text-[10px] sm:text-xs uppercase tracking-wider font-bold text-sky-600 dark:text-sky-400 truncate">
+                <span className="text-[9px] xs:text-[10px] sm:text-xs uppercase tracking-wider font-bold text-sky-600 dark:text-sky-400 truncate">
                   {t.common.republic}
                 </span>
-                <span className="font-black tracking-tight text-xs sm:text-base leading-tight text-slate-900 dark:text-white truncate">
-                  {t.common.siteName.toUpperCase()}
+                <span className="font-black tracking-tight text-xs sm:text-sm lg:text-base leading-tight text-slate-900 dark:text-white truncate">
+                  <span className="sm:hidden">{t.common.siteShortName}</span>
+                  <span className="hidden sm:inline">{t.common.siteName.toUpperCase()}</span>
                 </span>
               </div>
             </a>
@@ -78,8 +79,10 @@ export default function Header() {
               {/* Language Switcher */}
               <LanguageSwitcher />
 
-              {/* Theme Toggle Button */}
-              <ThemeToggle />
+              {/* Theme Toggle Button - hidden on mobile (< sm), accessible inside mobile drawer */}
+              <div className="hidden sm:block">
+                <ThemeToggle />
+              </div>
 
               <a
                 href="#qabul"
@@ -93,7 +96,7 @@ export default function Header() {
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(true)}
-                className="lg:hidden p-2 sm:p-2.5 rounded-xl transition-all active:scale-95 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800"
+                className="lg:hidden p-2 sm:p-2.5 rounded-xl transition-all active:scale-95 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 cursor-pointer"
                 aria-label="Menyuni ochish"
               >
                 <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
