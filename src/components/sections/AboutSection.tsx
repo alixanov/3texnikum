@@ -23,13 +23,16 @@ export default function AboutSection() {
   return (
     <section
       id="haqimizda"
-      className="py-16 sm:py-24 md:py-28 bg-white dark:bg-slate-900 transition-colors duration-300 relative overflow-hidden"
+      className="rounded-t-[32px] sm:rounded-t-[48px] -mt-6 sm:-mt-8 relative z-20 pt-10 pb-16 sm:py-24 md:py-28 bg-white dark:bg-slate-900 transition-colors duration-300 overflow-hidden shadow-2xl border-t border-slate-200/80 dark:border-slate-800"
     >
       {/* Background ambient accents */}
       <div className="absolute top-1/4 -left-48 w-96 h-96 bg-sky-400/10 dark:bg-sky-500/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-blue-500/10 dark:bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Subtle mobile sheet pull handle */}
+        <div className="w-12 h-1 bg-slate-200 dark:bg-slate-700 rounded-full mx-auto mb-6 sm:hidden" />
+
         <SectionHeading
           badge={t.about.badge}
           title={t.about.title}
