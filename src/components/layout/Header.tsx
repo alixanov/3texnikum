@@ -61,12 +61,12 @@ export default function Header() {
             </a>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5">
+            <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1.5">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  className="px-2.5 xl:px-3 py-1.5 xl:py-2 text-xs xl:text-sm font-semibold rounded-lg text-slate-700 dark:text-slate-200 hover:text-sky-600 dark:hover:text-sky-400 hover:bg-sky-50 dark:hover:bg-slate-800/80 transition-all"
+                  className="px-2 xl:px-3 py-1.5 xl:py-2 text-xs xl:text-sm font-semibold rounded-lg text-slate-700 dark:text-slate-200 hover:text-sky-600 dark:hover:text-sky-400 hover:bg-sky-50 dark:hover:bg-slate-800/80 transition-all whitespace-nowrap"
                 >
                   {link.label}
                 </a>
@@ -83,7 +83,7 @@ export default function Header() {
 
               <a
                 href="#qabul"
-                className="hidden xl:inline-flex items-center gap-1.5 px-3.5 py-2 text-xs xl:text-sm font-bold rounded-xl transition-all shadow-sm active:scale-95 bg-sky-600 hover:bg-sky-700 dark:bg-sky-500 dark:hover:bg-sky-400 text-white dark:text-slate-950 shadow-sky-600/20 dark:shadow-sky-500/30"
+                className="hidden lg:inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 text-xs xl:text-sm font-bold rounded-xl transition-all shadow-sm active:scale-95 bg-sky-600 hover:bg-sky-700 dark:bg-sky-500 dark:hover:bg-sky-400 text-white dark:text-slate-950 shadow-sky-600/20 dark:shadow-sky-500/30 whitespace-nowrap"
               >
                 <span>{t.common.admissionBtn}</span>
                 <ArrowUpRight className="w-3.5 h-3.5 opacity-80" />

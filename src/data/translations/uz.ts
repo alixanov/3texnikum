@@ -5,7 +5,7 @@ export const uz: Translations = {
     siteName: "Namangan 3-sonli texnikum",
     siteShortName: "3-TEXNIKUM",
     republic: "O‘zbekiston Respublikasi",
-    admissionBtn: "Qabul haqida ma’lumot",
+    admissionBtn: "Qabul",
     callUs: "Biz bilan bog‘lanish",
     moreInfo: "Batafsil ma’lumot",
     close: "Yopish",

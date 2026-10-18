@@ -5,7 +5,7 @@ export const en: Translations = {
     siteName: "Namangan Technical College No. 3",
     siteShortName: "COLLEGE NO. 3",
     republic: "Republic of Uzbekistan",
-    admissionBtn: "Admission Details",
+    admissionBtn: "Admission",
     callUs: "Contact Us",
     moreInfo: "Learn More",
     close: "Close",

@@ -5,7 +5,7 @@ export const ru: Translations = {
     siteName: "Наманганский техникум №3",
     siteShortName: "ТЕХНИКУМ №3",
     republic: "Республика Узбекистан",
-    admissionBtn: "Информация о поступлении",
+    admissionBtn: "Приём",
     callUs: "Связаться с нами",
     moreInfo: "Подробнее",
     close: "Закрыть",
