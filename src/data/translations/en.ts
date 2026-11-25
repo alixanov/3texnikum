@@ -288,6 +288,11 @@ export const en: Translations = {
       },
       {
         id: "gal-6",
+        title: "Student Life & Community",
+        category: "Student Life",
+      },
+      {
+        id: "gal-7",
         title: "Student Community & Team Projects",
         category: "Student Life",
       },

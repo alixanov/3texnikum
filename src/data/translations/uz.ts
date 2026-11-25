@@ -288,6 +288,11 @@ export const uz: Translations = {
       },
       {
         id: "gal-6",
+        title: "Talabalar hayoti",
+        category: "Talabalar hayoti",
+      },
+      {
+        id: "gal-7",
         title: "Talabalar hayoti va jamoaviy loyihalar",
         category: "Talabalar hayoti",
       },

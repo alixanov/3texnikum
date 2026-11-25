@@ -342,10 +342,17 @@ export const siteConfig = {
     },
     {
       id: "gal-6",
+      title: "Talabalar hayoti",
+      category: "Talabalar hayoti",
+      image: "/images/gallery/talabalar-hayoti.jpg",
+      aspect: "square",
+    },
+    {
+      id: "gal-7",
       title: "Talabalar hayoti va jamoaviy loyihalar",
       category: "Talabalar hayoti",
       image: "/images/gallery/talabalar.jpg",
-      aspect: "tall",
+      aspect: "square",
     },
   ] as GalleryItem[],
 
